@@ -1,3 +1,14 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Underground/GridSelector.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Underground/grid_selector.png" type="Texture" id=2]
 
 [node name="Grid" type="Node2D"]
+
+[node name="GridKinematic" type="KinematicBody2D" parent="."]
+position = Vector2( 800, 0 )
+script = ExtResource( 1 )
+
+[node name="GridSelector" type="Sprite" parent="GridKinematic"]
+texture = ExtResource( 2 )
+centered = false
