@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/UI/RootSelector.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Underground/Grid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/DayCycle.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/EnemyLeftSpawner.gd" type="Script" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "DayCycleRotation"
@@ -79,15 +80,19 @@ margin_right = 4016.0
 margin_bottom = 1820.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Tree" parent="." instance=ExtResource( 3 )]
-position = Vector2( 850, 292 )
-scale = Vector2( 0.4, 0.4 )
-
 [node name="Grid" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, 500 )
+
+[node name="Tree" parent="." instance=ExtResource( 3 )]
+position = Vector2( 800, 289 )
+scale = Vector2( 1, 0.85 )
 
 [node name="UIContainer" type="CanvasLayer" parent="."]
 
 [node name="RootSelector" parent="UIContainer" instance=ExtResource( 4 )]
 position = Vector2( 10, 12 )
 scale = Vector2( 0.65, 0.65 )
+
+[node name="EnemyLeftSpawner" type="Node2D" parent="."]
+position = Vector2( -60, 465 )
+script = ExtResource( 6 )
