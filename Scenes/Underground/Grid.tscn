@@ -3,14 +3,15 @@
 [ext_resource path="res://Scripts/Underground/GridSelector.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Underground/grid_selector.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Underground/Grid.gd" type="Script" id=3]
-[ext_resource path="res://Assets/Underground/fondTerre.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Underground/Items/Rock.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Underground/fondTerre.png" type="Texture" id=5]
 
 [node name="Grid" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="UndergroundSprite" type="Sprite" parent="."]
 position = Vector2( 800, 644 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="GridKinematic" type="KinematicBody2D" parent="."]
 position = Vector2( 800, 0 )
@@ -26,3 +27,24 @@ offset = Vector2( 40, 40 )
 current = true
 limit_left = -40
 limit_right = 1560
+
+[node name="RockGroup" type="Node2D" parent="."]
+position = Vector2( 560, 160 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Rock" parent="RockGroup" instance=ExtResource( 4 )]
+
+[node name="Rock2" parent="RockGroup" instance=ExtResource( 4 )]
+position = Vector2( 0, 80 )
+
+[node name="Rock3" parent="RockGroup" instance=ExtResource( 4 )]
+position = Vector2( 80, 0 )
+
+[node name="Rock4" parent="RockGroup" instance=ExtResource( 4 )]
+position = Vector2( 80, 80 )
+
+[node name="RockTmp" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 640, 240 )
