@@ -1,10 +1,60 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Underground/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/UI/RootSelector.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Outside/Tree.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/placeholder_day_cycle.png" type="Texture" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "DayCycleRotation"
+length = 90.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 60, 90 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -310.0, -130.0, 50.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 270.0 ]
+}
 
 [node name="World" type="Node2D"]
+
+[node name="DayCycle" type="Sprite" parent="."]
+position = Vector2( 825, 495 )
+rotation = 4.71239
+scale = Vector2( 8.02262, 8.02262 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DayCycle"]
+anims/DayCycleRotation = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -1751.0
+margin_top = 470.0
+margin_right = 4016.0
+margin_bottom = 1790.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="Tree" parent="." instance=ExtResource( 3 )]
 position = Vector2( 850, 292 )
