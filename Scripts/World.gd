@@ -20,9 +20,8 @@ func _ready():
 
 func _process(_delta):
 	if GAME.get_tree_hp() == 0:
-		print("PERDU !")
+		get_tree().change_scene("res://Scenes/GameOver.tscn")
 	if Input.is_action_just_pressed("spawn_ally_left"):
-		print("on appui sur Q")
 		EVENTS.emit_signal("activate_ally_spawner", $AllySpawners/AllyLeftSpawner)
 	if Input.is_action_just_pressed("spawn_ally_right"):
 		EVENTS.emit_signal("activate_ally_spawner", $AllySpawners/AllyRightSpawner)
