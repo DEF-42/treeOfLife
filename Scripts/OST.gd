@@ -3,11 +3,13 @@ extends AudioStreamPlayer
 const DAY_SOUNDS = {
 	1: preload("res://Sounds/OST/Day_Variation1.wav"),
 	2: preload("res://Sounds/OST/Day_Variation2.wav"),
+	3: preload("res://Sounds/OST/Day_Variation3.wav"),
 }
 var DAY_SOUNDS_SIZE = DAY_SOUNDS.size()
 const NIGHT_SOUNDS = {
 	1: preload("res://Sounds/OST/Night_Variation1.wav"),
 	2: preload("res://Sounds/OST/Night_Variation2.wav"),
+	3: preload("res://Sounds/OST/Night_Variation3.wav"),
 }
 var NIGHT_SOUNDS_SIZE = NIGHT_SOUNDS.size()
 var rng = RandomNumberGenerator.new()
