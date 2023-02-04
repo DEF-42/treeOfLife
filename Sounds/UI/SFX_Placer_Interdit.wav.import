@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/SFX_Pivoter_Racine_2.wav-4aaaa855573ff986ea44e3310d23637c.sample"
+path="res://.import/SFX_Placer_Interdit.wav-a8c9b03e976fd5e46c08ee3622113da1.sample"
 
 [deps]
 
-source_file="res://Sounds/UI/SFX_Pivoter_Racine_2.wav"
-dest_files=[ "res://.import/SFX_Pivoter_Racine_2.wav-4aaaa855573ff986ea44e3310d23637c.sample" ]
+source_file="res://Sounds/UI/SFX_Placer_Interdit.wav"
+dest_files=[ "res://.import/SFX_Placer_Interdit.wav-a8c9b03e976fd5e46c08ee3622113da1.sample" ]
 
 [params]
 

@@ -9,7 +9,7 @@ func _on_create_root(root: Node2D):
 	GAME.set_can_create_root(true)
 	var duplicatedRoot = root.duplicate()
 	if GAME.check_free_in_grid($GridKinematic.position):
-		if (GAME.check_cell_contains_sediment($GridKinematic.position)):
+		if (GAME.check_cell_contains_node_type($GridKinematic.position, "sediment")):
 			GAME.increment_sediment()
 			EVENTS.emit_signal("sediment_linked")
 		
@@ -19,7 +19,11 @@ func _on_create_root(root: Node2D):
 		GAME.set_can_create_root(true)
 		$RootPlacedSound.stop()
 		$RootPlacedSound.play()
-	else: GAME.set_can_create_root(false)
+	else: 
+		if GAME.check_cell_contains_node_type($GridKinematic.position, "rock"):
+			$RootPlacedForbiddenSound.stop()
+			$RootPlacedForbiddenSound.play()
+		GAME.set_can_create_root(false)
 
 func _register_resources():
 	var AVAILABLE_RESOURCES = [$RockGroup, $SedimentGroup, $WaterGroup]

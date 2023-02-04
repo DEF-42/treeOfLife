@@ -49,15 +49,15 @@ func check_free_in_grid(root_position) -> bool:
 			break;
 	
 	return free;
-
-func check_cell_contains_sediment(root_position) -> bool:
+	
+func check_cell_contains_node_type(root_position, node_type: String) -> bool:
 	var attribute_coordinates = _attribute_coordinates(root_position)
-	var is_sediment = false;
+	var contains_node_type = false;
 	for x in grid:
-		if (x.position == attribute_coordinates && x.node.type == "sediment"):
-			is_sediment = true;
+		if (x.position == attribute_coordinates && x.node.type == node_type):
+			contains_node_type = true;
 			break;
-	return is_sediment;
+	return contains_node_type;
 
 func get_grid():
 	return grid

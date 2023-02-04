@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Underground/GridSelector.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Underground/grid_selector.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Scenes/Underground/Items/Sediment.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Sounds/UI/SFX_Placer_Racine_2.wav" type="AudioStream" id=7]
 [ext_resource path="res://Scenes/Underground/Items/Water.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sounds/UI/SFX_Placer_Interdit.wav" type="AudioStream" id=9]
 
 [node name="Grid" type="Node2D"]
 script = ExtResource( 3 )
@@ -23,8 +24,12 @@ position = Vector2( 800, 1476 )
 texture = ExtResource( 5 )
 
 [node name="UndergroundSprite" type="Sprite" parent="UndergroundSprites"]
+
 [node name="RootPlacedSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+
+[node name="RootPlacedForbiddenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
 
 [node name="UndergroundSprite" type="Sprite" parent="."]
 position = Vector2( 800, 644 )
