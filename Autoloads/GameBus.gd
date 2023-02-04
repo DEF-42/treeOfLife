@@ -5,6 +5,7 @@ var can_create_root: bool = true setget set_can_create_root, get_can_create_root
 # True = Jour, False = Nuit
 var day_cycle_state: bool = true setget set_day_cycle_state, get_day_cycle_state
 var tree_hp: int = 3 setget set_tree_hp, get_tree_hp
+var sediments: int = 0
 
 var cell_size: Vector2 = Vector2(80, 80)
 var grid = []
@@ -42,6 +43,15 @@ func check_free_in_grid(root_position) -> bool:
 	
 	return free;
 
+func check_cell_contains_sediment(root_position) -> bool:
+	var attribute_coordinates = _attribute_coordinates(root_position)
+	var is_sediment = false;
+	for x in grid:
+		if (x.position == attribute_coordinates && x.node.type == "sediment"):
+			is_sediment = true;
+			break;
+	return is_sediment;
+
 func get_grid():
 	return grid
 
@@ -54,3 +64,6 @@ func _attribute_coordinates(root_position: Vector2) -> Vector2:
 
 func invert_day_state():
 	set_day_cycle_state(!get_day_cycle_state())
+
+func increment_sediment():
+	sediments = sediments + 1
