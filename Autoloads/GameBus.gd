@@ -7,7 +7,7 @@ var day_cycle_state: bool = true setget set_day_cycle_state, get_day_cycle_state
 var tree_hp: int = 3 setget set_tree_hp, get_tree_hp
 
 var cell_size: Vector2 = Vector2(80, 80)
-var grid: PoolVector2Array = []
+var grid = []
 
 
 ### ACCESSORS ###
@@ -33,22 +33,32 @@ func get_tree_hp() -> int:
 
 ### FUNCTIONS ###
 func check_free_in_grid(root_position) -> bool:
-	if grid.has(_attribute_coordinates(root_position)):
-		return false
-	else: 
-		_add_to_grid(root_position)
-		return true
+	var attribute_coordinates = _attribute_coordinates(root_position)
+	var free = true;
+	for x in grid:
+		if (x.position == attribute_coordinates && !x.passable):
+			free = false;
+			break;
 
-func get_grid() -> PoolVector2Array:
+	if (free):
+		_add_to_grid(root_position, "root")
+	
+	return free;
+
+func get_grid():
 	return grid
 
 
-func _add_to_grid(root_position: Vector2):
-	grid.append(_attribute_coordinates(root_position))
+func _add_to_grid(root_position: Vector2, type: String):
+	grid.append({"position": _attribute_coordinates(root_position), "type": type, "passable": _get_type_passable_def(type)})
 	
 func _attribute_coordinates(root_position: Vector2) -> Vector2:
 	return Vector2(root_position.x / cell_size.x, root_position.y / cell_size.y)
 
-
 func invert_day_state():
 	set_day_cycle_state(!get_day_cycle_state())
+
+func _get_type_passable_def(type: String) -> bool:
+	if type == "root" || type == "rock":
+		return false
+	return true
