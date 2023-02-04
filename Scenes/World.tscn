@@ -26,7 +26,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 59.1, 90 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ -80.0, 160.0, 280.0 ]
+"values": [ -80.0, 125.0, 280.0 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -177,7 +177,7 @@ position = Vector2( 1450, 0 )
 
 [node name="DayCycle" type="Sprite" parent="."]
 position = Vector2( 746, 1463 )
-rotation = 2.78544
+rotation = 2.18166
 scale = Vector2( 6.71576, 6.71576 )
 texture = ExtResource( 2 )
 script = ExtResource( 6 )

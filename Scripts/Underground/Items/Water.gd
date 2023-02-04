@@ -1,13 +1,13 @@
 extends Node2D
 
 export var passable = true
-export var type = "sediment"
+export var type = "water"
 
 var rng = RandomNumberGenerator.new()
 
 const VARIATIONS = {
-	1: Rect2(270, 33, 80, 80),
-	2: Rect2(271, 120, 80, 80)
+	1: Rect2(43, 44, 80, 80),
+	2: Rect2(168, 34, 80, 80)
 }
 
 func _ready():
