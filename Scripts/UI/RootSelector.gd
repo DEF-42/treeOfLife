@@ -16,6 +16,7 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	rng.randomize()
 	_randomize_roots()
+	Input.action_press("first_root")
 
 func _process(delta):
 	if Input.is_action_just_pressed("first_root"):
@@ -42,5 +43,7 @@ func _get_random_root() -> StreamTexture:
 	return root_dictionary.get(random_number)
 
 func _rotate_roots():
+	$RotationSound.stop()
+	$RotationSound.play()
 	for root in $RootsGroup.get_children():
 		root.rotate(deg2rad(90));

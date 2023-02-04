@@ -37,8 +37,8 @@ tracks/0/keys = {
 "values": [ 0.0, 12.0, 0.0, -12.0, 0.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 20.5, 20 )
+[sub_resource type="CircleShape2D" id=1]
+radius = 24.0
 
 [node name="Enemy" type="Node2D"]
 
@@ -65,4 +65,5 @@ shape = SubResource( 1 )
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 pause_mode = 2
 stream = ExtResource( 3 )
+volume_db = -20.0
 autoplay = true
