@@ -2,6 +2,7 @@ extends Node2D
 
 
 var can_create_root: bool = true
+var can_rotate_root: bool = false
 var root_I_sprite = preload("res://Assets/Underground/root_I.png")
 var root_L_sprite = preload("res://Assets/Underground/root_L.png")
 var root_T_sprite = preload("res://Assets/Underground/root_T.png")
@@ -15,8 +16,10 @@ var rng = RandomNumberGenerator.new()
 
 func _ready():
 	rng.randomize()
-	_randomize_roots()
+	for root in $RootsGroup.get_children():
+		_randomize_root(root)
 	Input.action_press("first_root")
+	can_rotate_root = true
 
 func _process(delta):
 	if Input.is_action_just_pressed("first_root"):
@@ -30,12 +33,12 @@ func _process(delta):
 func _create_root(root: Node2D):
 	EVENTS.emit_signal("create_root", root)
 	if GAME.get_can_create_root():
-		_randomize_roots()
+		_randomize_root(root)
 
-func _randomize_roots():
-	for root in $RootsGroup.get_children():
-		var root_sprite = root.get_child(0)
-		root.get_child(0).texture = _get_random_root_texture()
+func _randomize_root(root: Node2D):
+	var root_sprite = root.get_child(0)
+	root.get_child(0).texture = _get_random_root_texture()
+	if can_rotate_root:
 		root.rotate(_get_random_root_rotation())
 	
 func _get_random_root_texture() -> StreamTexture:
