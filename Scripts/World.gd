@@ -37,7 +37,6 @@ func _on_day_state_changed(state: bool):
 		if random_number < 3:
 			EVENTS.emit_signal("activate_enemy_spawner", $EnemySpawners/EnemyLeftSpawner)
 		else: EVENTS.emit_signal("activate_enemy_spawner", $EnemySpawners/EnemyRightSpawner)
-		EVENTS.emit_signal("activate_enemy_spawner")
 
 func _on_display_battle(position):
 	var instance = battle.instance()
