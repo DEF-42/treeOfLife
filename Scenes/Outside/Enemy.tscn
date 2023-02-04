@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Assets/Outside/Enemy/termite04.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Outside/Enemy.gd" type="Script" id=2]
-[ext_resource path="res://Sounds/Outside/sound-army-termite.wav" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/Outside/dear_termite.wav" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
