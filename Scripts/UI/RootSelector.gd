@@ -24,7 +24,7 @@ func _process(delta):
 		_create_root($Root3.texture)
 
 
-func _create_root(texture):
+func _create_root(texture: StreamTexture):
 	EVENTS.emit_signal("create_root", texture)
 	_randomize_roots()
 
