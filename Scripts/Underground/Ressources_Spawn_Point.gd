@@ -28,7 +28,13 @@ func _ready():
 		resource_instance.type = resource_type
 		resource_instance.translate(Vector2(x, y))
 		$".".add_child(resource_instance)
-		GAME._add_to_grid(Vector2(resource_instance.global_position.x, resource_instance.global_position.y - 500), resource_instance)
+		
+		var global_position = Vector2(resource_instance.global_position.x, resource_instance.global_position.y - 500)
+		if (!GAME.check_free_in_grid(global_position, false)):
+			resource_instance.queue_free()
+			continue
+		
+		GAME._add_to_grid(global_position, resource_instance)
 		if (i % 3 == 2):
 			current_row = current_row + 1
 

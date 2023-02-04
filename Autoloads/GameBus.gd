@@ -47,13 +47,16 @@ func get_tree_hp() -> int:
 
 
 ### FUNCTIONS ###
-func check_free_in_grid(root_position) -> bool:
+func check_free_in_grid(root_position, check_passable = true) -> bool:
 	var attribute_coordinates = _attribute_coordinates(root_position)
 	var free = true;
 	for x in grid:
-		if (x.position == attribute_coordinates && !x.node.passable):
-			free = false;
-			break;
+		if x.position == attribute_coordinates:
+			if check_passable:
+				free = x.node.passable
+			else:
+				free = false
+			break
 	
 	return free;
 	
