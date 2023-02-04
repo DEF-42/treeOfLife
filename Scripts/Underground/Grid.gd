@@ -3,13 +3,12 @@ extends Node2D
 
 func _ready():
 	EVENTS.connect("create_root", self, "_on_create_root")
-	_register_rocks()
-	_register_sediments()
+	_register_resources()
 
 func _on_create_root(root: Node2D):
 	GAME.set_can_create_root(true)
 	var duplicatedRoot = root.duplicate()
-	if GAME.check_free_in_grid($GridKinematic.position):		
+	if GAME.check_free_in_grid($GridKinematic.position):
 		if (GAME.check_cell_contains_sediment($GridKinematic.position)):
 			GAME.increment_sediment()
 			EVENTS.emit_signal("sediment_linked")
@@ -22,12 +21,9 @@ func _on_create_root(root: Node2D):
 		$RootPlacedSound.play()
 	else: GAME.set_can_create_root(false)
 
-func _register_rocks():
-	for rock in $RockGroup.get_children():
-		# Pourquoi il y a 500px qui trainent sur le y ?!
-		GAME._add_to_grid(Vector2(rock.global_position.x, rock.global_position.y - 500), rock)
-
-func _register_sediments():
-	for sediment in $SedimentGroup.get_children():
-		# Pourquoi il y a 500px qui trainent sur le y ?!
-		GAME._add_to_grid(Vector2(sediment.global_position.x, sediment.global_position.y - 500), sediment)
+func _register_resources():
+	var AVAILABLE_RESOURCES = [$RockGroup, $SedimentGroup, $WaterGroup]
+	for resource_type in AVAILABLE_RESOURCES:
+		for resource in resource_type.get_children():
+			# 500px de décalage du grid
+			GAME._add_to_grid(Vector2(resource.global_position.x, resource.global_position.y - 500), resource)
