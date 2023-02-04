@@ -1,6 +1,9 @@
 extends Node2D
 
 
+var rng = RandomNumberGenerator.new()
+
+
 func _ready():
 	$DayCycle/AnimationPlayer.play("DayCycleRotation")
 	EVENTS.connect("day_state_changed", self, "_on_day_state_changed")
@@ -15,4 +18,8 @@ func _on_day_state_changed(state):
 	if state:
 		pass
 	else:
-		EVENTS.emit_signal("activate_enemy_spawner")
+		var random_number = rng.randi_range(1, 6)
+		print(random_number)
+		if random_number < 4:
+			EVENTS.emit_signal("activate_enemy_spawner", $EnemySpawners/EnemyLeftSpawner)
+		else: EVENTS.emit_signal("activate_enemy_spawner", $EnemySpawners/EnemyRightSpawner)

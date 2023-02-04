@@ -69,7 +69,7 @@ script = ExtResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="DayCycle"]
 reset_on_save = false
-playback_speed = 7.0
+playback_speed = 10.0
 method_call_mode = 1
 anims/DayCycleRotation = SubResource( 1 )
 anims/RESET = SubResource( 2 )
@@ -94,6 +94,11 @@ scale = Vector2( 1, 0.85 )
 position = Vector2( 10, 12 )
 scale = Vector2( 0.65, 0.65 )
 
-[node name="EnemyLeftSpawner" type="Node2D" parent="."]
-position = Vector2( -60, 465 )
+[node name="EnemySpawners" type="Node2D" parent="."]
 script = ExtResource( 7 )
+
+[node name="EnemyLeftSpawner" type="Node2D" parent="EnemySpawners"]
+position = Vector2( 44, 465 )
+
+[node name="EnemyRightSpawner" type="Node2D" parent="EnemySpawners"]
+position = Vector2( 1548, 465 )
