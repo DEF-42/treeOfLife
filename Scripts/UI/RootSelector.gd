@@ -18,7 +18,6 @@ func _ready():
 	rng.randomize()
 	for root in $RootsGroup.get_children():
 		_randomize_root(root)
-	Input.action_press("first_root")
 	can_rotate_root = true
 
 func _process(delta):

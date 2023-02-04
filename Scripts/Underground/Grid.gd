@@ -3,7 +3,6 @@ extends Node2D
 
 func _ready():
 	EVENTS.connect("create_root", self, "_on_create_root")
-	_register_resources()
 
 func _on_create_root(root: Node2D):
 	GAME.set_can_create_root(true)
@@ -24,10 +23,3 @@ func _on_create_root(root: Node2D):
 			$RootPlacedForbiddenSound.stop()
 			$RootPlacedForbiddenSound.play()
 		GAME.set_can_create_root(false)
-
-func _register_resources():
-	var AVAILABLE_RESOURCES = [$RockGroup, $SedimentGroup, $WaterGroup]
-	for resource_type in AVAILABLE_RESOURCES:
-		for resource in resource_type.get_children():
-			# 500px de décalage du grid
-			GAME._add_to_grid(Vector2(resource.global_position.x, resource.global_position.y - 500), resource)
