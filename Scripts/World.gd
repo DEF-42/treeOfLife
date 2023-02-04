@@ -28,15 +28,23 @@ func _process(_delta):
 		EVENTS.emit_signal("activate_ally_spawner", $AllySpawners/AllyRightSpawner)
 
 
+func _createEnemyInstance():
+	var random_number = rng.randi_range(1, 4)
+	if random_number < 3:
+		EVENTS.emit_signal("activate_enemy_spawner", $EnemySpawners/EnemyLeftSpawner)
+	else: EVENTS.emit_signal("activate_enemy_spawner", $EnemySpawners/EnemyRightSpawner)
+
+
 ### SIGNALS ###
 func _on_day_state_changed(state: bool):
 	if state:
 		pass
 	else:
-		var random_number = rng.randi_range(1, 4)
-		if random_number < 3:
-			EVENTS.emit_signal("activate_enemy_spawner", $EnemySpawners/EnemyLeftSpawner)
-		else: EVENTS.emit_signal("activate_enemy_spawner", $EnemySpawners/EnemyRightSpawner)
+		_createEnemyInstance()
+		yield(get_tree().create_timer(9.0), "timeout")
+		_createEnemyInstance()
+		yield(get_tree().create_timer(9.0), "timeout")
+		_createEnemyInstance()
 
 func _on_display_battle(position):
 	var instance = battle.instance()
