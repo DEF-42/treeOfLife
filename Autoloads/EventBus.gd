@@ -1,3 +1,3 @@
 extends Node
 
-signal create_root(val)
+signal create_root(texture)
