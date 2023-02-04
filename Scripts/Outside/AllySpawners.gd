@@ -10,6 +10,18 @@ func _ready():
 	EVENTS.connect("activate_ally_spawner", self, "_on_activate_ally_spawner")
 	EVENTS.connect("kill_ally", self, "_on_kill_ally")
 
+func _process(delta):
+	# On supprime la fourmi si elle sort de l'écran
+	if allySpawner != null:
+		if allySpawner.get_children().size() > 0:
+			var fourmiKinematic = allySpawner.get_child(0).get_child(0)
+			var leftBorder = fourmiKinematic.global_position.x > -80 and fourmiKinematic.global_position.x < -60
+			var rightBorder = fourmiKinematic.global_position.x > 1660 and fourmiKinematic.global_position.x < 1680
+			if leftBorder or rightBorder:
+				allySpawner.get_child(0).queue_free()
+				# On peut éventuellement la restacker dans nos ressources
+				# GAME.set_available_ants(GAME.get_available_ants() + 1)
+
 
 ### SIGNALS ###
 func _on_activate_ally_spawner(spawner: Node2D):
@@ -24,5 +36,5 @@ func _on_activate_ally_spawner(spawner: Node2D):
 		EVENTS.emit_signal("spawn_ally", spawner.name)
 
 func _on_kill_ally():
-	var ally = allySpawner.get_children()[0]
+	var ally = allySpawner.get_child(0)
 	ally.queue_free()
