@@ -18,6 +18,8 @@ func _on_create_root(root: Node2D):
 		add_child_below_node($".", duplicatedRoot)
 		GAME._add_to_grid($GridKinematic.position, duplicatedRoot)
 		GAME.set_can_create_root(true)
+		$RootPlacedSound.stop()
+		$RootPlacedSound.play()
 	else: GAME.set_can_create_root(false)
 
 func _register_rocks():
