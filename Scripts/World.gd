@@ -19,7 +19,7 @@ func _process(_delta):
 
 
 ### SIGNALS ###
-func _on_day_state_changed(state):
+func _on_day_state_changed(state: bool):
 	if state:
 		pass
 	else:

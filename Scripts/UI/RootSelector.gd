@@ -16,6 +16,7 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	rng.randomize()
 	_randomize_roots()
+	Input.action_press("first_root")
 
 func _process(delta):
 	if Input.is_action_just_pressed("first_root"):

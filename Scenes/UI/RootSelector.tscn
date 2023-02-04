@@ -59,7 +59,8 @@ position = Vector2( 131, 134 )
 position = Vector2( 263, 133 )
 
 [node name="Root3" parent="RootsGroup" instance=ExtResource( 1 )]
+visible = false
 position = Vector2( 389, 133 )
 
-[node name="RotationSound" type="AudioStreamPlayer2D" parent="."]
+[node name="RotationSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
