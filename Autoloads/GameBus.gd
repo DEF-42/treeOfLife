@@ -3,6 +3,8 @@ extends Node
 
 var can_create_root: bool = true setget set_can_create_root, get_can_create_root
 var cell_size: Vector2 = Vector2(80, 80)
+# True = Jour, False = Nuit
+var day_cycle_state: bool = true setget set_day_cycle_state, get_day_cycle_state
 var grid: PoolVector2Array = []
 
 
@@ -30,3 +32,15 @@ func _add_to_grid(root_position: Vector2):
 	
 func _attribute_coordinates(root_position: Vector2) -> Vector2:
 	return Vector2(root_position.x / cell_size.x, root_position.y / cell_size.y)
+
+
+func invert_day_state():
+	set_day_cycle_state(!get_day_cycle_state())
+
+func get_day_cycle_state() -> bool:
+	return day_cycle_state
+
+func set_day_cycle_state(val: bool):
+	if val != day_cycle_state:
+		day_cycle_state = val
+		EVENTS.emit_signal("day_state_changed", val)
