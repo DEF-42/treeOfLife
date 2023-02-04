@@ -36,12 +36,9 @@ func check_free_in_grid(root_position) -> bool:
 	var attribute_coordinates = _attribute_coordinates(root_position)
 	var free = true;
 	for x in grid:
-		if (x.position == attribute_coordinates && !x.passable):
+		if (x.position == attribute_coordinates && !x.node.passable):
 			free = false;
 			break;
-
-	if (free):
-		_add_to_grid(root_position, "root")
 	
 	return free;
 
@@ -49,16 +46,11 @@ func get_grid():
 	return grid
 
 
-func _add_to_grid(root_position: Vector2, type: String):
-	grid.append({"position": _attribute_coordinates(root_position), "type": type, "passable": _get_type_passable_def(type)})
+func _add_to_grid(root_position: Vector2, node: Node2D):
+	grid.append({"position": _attribute_coordinates(root_position), "node": node})
 	
 func _attribute_coordinates(root_position: Vector2) -> Vector2:
 	return Vector2(root_position.x / cell_size.x, root_position.y / cell_size.y)
 
 func invert_day_state():
 	set_day_cycle_state(!get_day_cycle_state())
-
-func _get_type_passable_def(type: String) -> bool:
-	if type == "root" || type == "rock":
-		return false
-	return true
