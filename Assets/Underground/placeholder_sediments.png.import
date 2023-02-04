@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/placeholder_day_cycle.png-cd86308c2eb56cedd811fa9e61f007de.stex"
+path="res://.import/placeholder_sediments.png-1c2779fe854bd22bba6ee56386d3211b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/placeholder_day_cycle.png"
-dest_files=[ "res://.import/placeholder_day_cycle.png-cd86308c2eb56cedd811fa9e61f007de.stex" ]
+source_file="res://Assets/Underground/placeholder_sediments.png"
+dest_files=[ "res://.import/placeholder_sediments.png-1c2779fe854bd22bba6ee56386d3211b.stex" ]
 
 [params]
 

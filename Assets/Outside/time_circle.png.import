@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/placeholder_root_2.png-b468bbf981fb28d17355c18f04899d81.stex"
+path="res://.import/time_circle.png-5453588c4ffff8402acbc21e5c3144aa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/placeholder_root_2.png"
-dest_files=[ "res://.import/placeholder_root_2.png-b468bbf981fb28d17355c18f04899d81.stex" ]
+source_file="res://Assets/Outside/time_circle.png"
+dest_files=[ "res://.import/time_circle.png-5453588c4ffff8402acbc21e5c3144aa.stex" ]
 
 [params]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Assets/UI/placeholder_root.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Underground/Items/Root.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/roboto_24.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Assets/UI/placeholder_root_selector_frame.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/UI/RootSelector.gd" type="Script" id=4]
@@ -14,9 +14,9 @@ scale = Vector2( 1.29, 1 )
 texture = ExtResource( 3 )
 
 [node name="SelectKeyLabel" type="Label" parent="."]
-margin_left = 104.0
+margin_left = 112.0
 margin_top = 180.0
-margin_right = 144.0
+margin_right = 152.0
 margin_bottom = 209.0
 custom_fonts/font = ExtResource( 2 )
 text = "1"
@@ -26,9 +26,9 @@ __meta__ = {
 }
 
 [node name="SelectKeyLabel2" type="Label" parent="."]
-margin_left = 233.0
+margin_left = 242.0
 margin_top = 180.0
-margin_right = 273.0
+margin_right = 282.0
 margin_bottom = 209.0
 custom_fonts/font = ExtResource( 2 )
 text = "2"
@@ -38,9 +38,9 @@ __meta__ = {
 }
 
 [node name="SelectKeyLabel3" type="Label" parent="."]
-margin_left = 362.0
+margin_left = 369.0
 margin_top = 180.0
-margin_right = 402.0
+margin_right = 409.0
 margin_bottom = 209.0
 custom_fonts/font = ExtResource( 2 )
 text = "3"
@@ -51,17 +51,11 @@ __meta__ = {
 
 [node name="RootsGroup" type="Node2D" parent="."]
 
-[node name="Root" type="Sprite" parent="RootsGroup"]
-position = Vector2( 124, 142 )
-texture = ExtResource( 1 )
-offset = Vector2( 0, -9 )
+[node name="Root" parent="RootsGroup" instance=ExtResource( 1 )]
+position = Vector2( 131, 134 )
 
-[node name="Root2" type="Sprite" parent="RootsGroup"]
-position = Vector2( 252, 142 )
-texture = ExtResource( 1 )
-offset = Vector2( 0, -9 )
+[node name="Root2" parent="RootsGroup" instance=ExtResource( 1 )]
+position = Vector2( 263, 133 )
 
-[node name="Root3" type="Sprite" parent="RootsGroup"]
-position = Vector2( 381, 142 )
-texture = ExtResource( 1 )
-offset = Vector2( 0, -9 )
+[node name="Root3" parent="RootsGroup" instance=ExtResource( 1 )]
+position = Vector2( 389, 133 )
