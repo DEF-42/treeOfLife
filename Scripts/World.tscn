@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/placeholder_day_cycle.png" type="Texture" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/UI/RootSelector.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Underground/Grid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/DayCycle.gd" type="Script" id=6]
-[ext_resource path="res://Scripts/EnemyLeftSpawner.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/EnemyLeftSpawner.gd" type="Script" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "DayCycleRotation"
@@ -62,13 +62,14 @@ script = ExtResource( 1 )
 
 [node name="DayCycle" type="Sprite" parent="."]
 position = Vector2( 825, 495 )
-rotation = 0.872665
+rotation = -5.41052
 scale = Vector2( 8.02262, 8.02262 )
 texture = ExtResource( 2 )
 script = ExtResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="DayCycle"]
 reset_on_save = false
+playback_speed = 7.0
 method_call_mode = 1
 anims/DayCycleRotation = SubResource( 1 )
 anims/RESET = SubResource( 2 )
@@ -95,4 +96,4 @@ scale = Vector2( 0.65, 0.65 )
 
 [node name="EnemyLeftSpawner" type="Node2D" parent="."]
 position = Vector2( -60, 465 )
-script = ExtResource( 6 )
+script = ExtResource( 7 )

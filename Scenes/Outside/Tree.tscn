@@ -4,17 +4,17 @@
 [ext_resource path="res://Assets/Outside/herbe.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 121, 214.5 )
+extents = Vector2( 114, 245.5 )
 
 [node name="Tree" type="Node2D"]
 
-[node name="ArbreCollision" type="StaticBody2D" parent="."]
+[node name="ArbreArea" type="StaticBody2D" parent="."]
 
-[node name="Arbre" type="Sprite" parent="ArbreCollision"]
+[node name="Arbre" type="Sprite" parent="ArbreArea"]
 texture = ExtResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArbreCollision"]
-position = Vector2( -3, 27.5 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArbreArea"]
+position = Vector2( -4, -3.5 )
 shape = SubResource( 1 )
 
 [node name="Herbe" type="Sprite" parent="."]

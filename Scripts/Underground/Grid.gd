@@ -5,6 +5,7 @@ func _ready():
 	EVENTS.connect("create_root", self, "_on_create_root")
 
 
+### SIGNALS ###
 func _on_create_root(texture: StreamTexture):
 	GAME.set_can_create_root(true)
 	var sprite = Sprite.new()
