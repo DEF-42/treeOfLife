@@ -2,6 +2,7 @@ extends Node2D
 
 
 var termite = preload("res://Scenes/Outside/Enemy.tscn")
+var enemySpawner: Node2D
 
 
 func _ready():
@@ -10,10 +11,13 @@ func _ready():
 
 
 ### SIGNALS ###
-func _on_activate_enemy_spawner():
+func _on_activate_enemy_spawner(spawner: Node2D):
+	print("node", enemySpawner)
+	enemySpawner = spawner
 	var instance = termite.instance()
-	add_child(instance)
+	spawner.add_child(instance)
+	EVENTS.emit_signal("spawn_enemy", spawner.name)
 
 func _on_kill_enemy():
-	var enemy = $".".get_children()[0]
+	var enemy = enemySpawner.get_children()[0]
 	enemy.queue_free()
