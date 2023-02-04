@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Underground/GridSelector.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Underground/grid_selector.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/Underground/Items/Rock.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Underground/fondTerre.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Underground/Items/Sediment.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Sounds/UI/SFX_Placer_Racine_2.wav" type="AudioStream" id=7]
 
 [node name="Grid" type="Node2D"]
 script = ExtResource( 3 )
@@ -27,6 +28,8 @@ offset = Vector2( 40, 40 )
 current = true
 limit_left = -40
 limit_right = 1560
+
+[node name="GridSelectorMovement" type="AudioStreamPlayer" parent="GridKinematic"]
 
 [node name="RockGroup" type="Node2D" parent="."]
 position = Vector2( 560, 160 )
@@ -64,3 +67,6 @@ position = Vector2( 80, 80 )
 
 [node name="Sediment5" parent="SedimentGroup" instance=ExtResource( 6 )]
 position = Vector2( 160, 0 )
+
+[node name="RootPlacedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
