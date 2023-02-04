@@ -1,8 +1,17 @@
 extends Node
 
 
+var can_create_root: bool = true setget set_can_create_root, get_can_create_root
 var cell_size: Vector2 = Vector2(80, 80)
 var grid: PoolVector2Array = []
+
+
+func set_can_create_root(val: bool):
+	if val != can_create_root:
+		can_create_root = val
+
+func get_can_create_root() -> bool:
+	return can_create_root
 
 
 func check_free_in_grid(root_position) -> bool:
