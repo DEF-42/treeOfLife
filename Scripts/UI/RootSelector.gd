@@ -28,14 +28,14 @@ func _process(delta):
 		_rotate_roots()
 
 
-func _create_root(sprite: Sprite):
-	EVENTS.emit_signal("create_root", sprite)
+func _create_root(root: Node2D):
+	EVENTS.emit_signal("create_root", root)
 	if GAME.get_can_create_root():
 		_randomize_roots()
 
 func _randomize_roots():
 	for root in $RootsGroup.get_children():
-		root.texture = _get_random_root();
+		root.get_child(0).texture = _get_random_root();
 	
 func _get_random_root() -> StreamTexture:
 	var random_number = rng.randi_range(1, root_dictionary.size())

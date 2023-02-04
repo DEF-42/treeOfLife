@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/placeholder_root_2.png-b468bbf981fb28d17355c18f04899d81.stex"
+path="res://.import/placeholder_sediments.png-1c2779fe854bd22bba6ee56386d3211b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/placeholder_root_2.png"
-dest_files=[ "res://.import/placeholder_root_2.png-b468bbf981fb28d17355c18f04899d81.stex" ]
+source_file="res://Assets/Underground/placeholder_sediments.png"
+dest_files=[ "res://.import/placeholder_sediments.png-1c2779fe854bd22bba6ee56386d3211b.stex" ]
 
 [params]
 
