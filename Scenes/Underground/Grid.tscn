@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Underground/GridSelector.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Underground/grid_selector.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Assets/Underground/fondTerre.png" type="Texture" id=5]
 [ext_resource path="res://Sounds/UI/SFX_Placer_Racine_2.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sounds/UI/SFX_Placer_Interdit.wav" type="AudioStream" id=9]
-[ext_resource path="res://Scenes/Underground/Ressources_Spawn_Point.tscn" type="PackedScene" id=10]
 
 [node name="Grid" type="Node2D"]
 script = ExtResource( 3 )
@@ -48,15 +47,3 @@ limit_left = -40
 limit_right = 1560
 
 [node name="GridSelectorMovement" type="AudioStreamPlayer" parent="GridKinematic"]
-
-[node name="RessourceSpawnPoint" parent="." instance=ExtResource( 10 )]
-position = Vector2( 560, 320 )
-
-[node name="RessourceSpawnPoint2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1040, 640 )
-
-[node name="RessourceSpawnPoint3" parent="." instance=ExtResource( 10 )]
-position = Vector2( 0, 1040 )
-
-[node name="RessourceSpawnPoint4" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1360, 80 )

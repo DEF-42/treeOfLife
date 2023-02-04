@@ -1,6 +1,12 @@
 extends Node
 
-var resource_types = ["rock", "water", "sediment", "mushroom"]
+const ROCK = "rock"
+const WATER = "water"
+const SEDIMENT = "sediment"
+const MUSHROOM = "mushroom"
+const MAYA_PLATE = "maya_plate"
+
+var resource_types = [ROCK, WATER, SEDIMENT, MUSHROOM, MAYA_PLATE]
 
 var available_ants: int = 3 setget set_available_ants, get_available_ants
 var can_create_root: bool = true setget set_can_create_root, get_can_create_root

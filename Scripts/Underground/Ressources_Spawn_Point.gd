@@ -1,13 +1,5 @@
 extends Node2D
 
-const MINIMUM_RESOURCE = {
-	"rock": 3,
-	"water": 2,
-	"sediment": 6,
-	"mushroom": 1,
-	"maya_mask": 1
-}
-
 var resource_scene = preload("res://Scenes/Underground/Ressource.tscn")
 var rng = RandomNumberGenerator.new()
 
@@ -15,18 +7,19 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	rng.randomize()
 	var resource_type = _randomize_resource_type()
+	var minimum = 1
 	var maximum = 9
-	if (resource_type == "maya_mask"):
+	if (resource_type == GAME.MAYA_PLATE):
 		maximum = 1
-	var resource_number = rng.randi_range(MINIMUM_RESOURCE.get(resource_type), 9)
+	var resource_number = rng.randi_range(minimum, maximum)
 	
 	var current_row = 0
 	for i in range(0, resource_number):
-		var x = (i % 3) * 80
-		var y = current_row * 80
+		var x = (i % 3) * GAME.cell_size.x
+		var y = current_row * GAME.cell_size.y
 		
 		var skip = false
-		if (i > 3):
+		if (i > minimum):
 			skip = rng.randi_range(0, 1)
 			if (skip == 1):
 				continue
@@ -42,8 +35,6 @@ func _ready():
 func _randomize_resource_type() -> String:
 	var random_index = rng.randi_range(0, GAME.resource_types.size() - 1)
 	var selected_resource = GAME.resource_types[random_index]
-	GAME.resource_types.erase(selected_resource)
+	if (selected_resource == GAME.MAYA_PLATE):
+		GAME.resource_types.erase(GAME.MAYA_PLATE)
 	return selected_resource
-
-func _get_minimum(resource_type: String) -> int:
-	return 1
