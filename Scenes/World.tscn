@@ -97,9 +97,9 @@ scale = Vector2( 0.65, 0.65 )
 script = ExtResource( 7 )
 
 [node name="EnemyLeftSpawner" type="Node2D" parent="EnemySpawners"]
-position = Vector2( 44, 465 )
+position = Vector2( -60, 472 )
 
 [node name="EnemyRightSpawner" type="Node2D" parent="EnemySpawners"]
-position = Vector2( 1548, 465 )
+position = Vector2( 1660, 472 )
 
 [node name="ExperienceTick" type="Timer" parent="."]

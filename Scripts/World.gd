@@ -7,6 +7,7 @@ var rng = RandomNumberGenerator.new()
 
 
 func _ready():
+	rng.randomize()
 	$DayCycle/AnimationPlayer.play("DayCycleRotation")
 	$ExperienceTick.connect("timeout", self, "_on_experience_tick")
 	EVENTS.connect("day_state_changed", self, "_on_day_state_changed")
@@ -22,9 +23,8 @@ func _on_day_state_changed(state):
 	if state:
 		pass
 	else:
-		var random_number = rng.randi_range(1, 6)
-		print(random_number)
-		if random_number < 4:
+		var random_number = rng.randi_range(1, 4)
+		if random_number < 3:
 			EVENTS.emit_signal("activate_enemy_spawner", $EnemySpawners/EnemyLeftSpawner)
 		else: EVENTS.emit_signal("activate_enemy_spawner", $EnemySpawners/EnemyRightSpawner)
 		EVENTS.emit_signal("activate_enemy_spawner")

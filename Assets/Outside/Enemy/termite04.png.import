@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tree_v0.png-c8fcb4a1b7c53ab5ebe2e8a8962a03bb.stex"
+path="res://.import/termite04.png-88606ce24a1b02d944159b0ae06d0486.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Outside/tree_v0.png"
-dest_files=[ "res://.import/tree_v0.png-c8fcb4a1b7c53ab5ebe2e8a8962a03bb.stex" ]
+source_file="res://Assets/Outside/Enemy/termite04.png"
+dest_files=[ "res://.import/termite04.png-88606ce24a1b02d944159b0ae06d0486.stex" ]
 
 [params]
 
