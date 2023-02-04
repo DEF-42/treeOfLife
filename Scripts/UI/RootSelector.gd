@@ -15,6 +15,7 @@ var rng = RandomNumberGenerator.new()
 
 func _ready():
 	rng.randomize()
+	_randomize_roots()
 
 func _process(delta):
 	if Input.is_action_just_pressed("numpad_1"):
