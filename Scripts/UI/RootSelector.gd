@@ -28,7 +28,7 @@ func _process(delta):
 
 func _create_root(texture: StreamTexture):
 	EVENTS.emit_signal("create_root", texture)
-	if GRID.get_can_create_root():
+	if GAME.get_can_create_root():
 		_randomize_roots()
 
 func _randomize_roots():
