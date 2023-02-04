@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Outside/time_circle.png" type="Texture" id=2]
@@ -7,7 +7,9 @@
 [ext_resource path="res://Scenes/Underground/Grid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/DayCycle.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/EnemyLeftSpawner.gd" type="Script" id=7]
-[ext_resource path="res://Scripts/OST.gd" type="Script" id=8]
+[ext_resource path="res://Assets/Roboto-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://Scripts/Outside/AllySpawners.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/OST.gd" type="Script" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "DayCycleRotation"
@@ -58,8 +60,115 @@ tracks/0/keys = {
 "values": [ 270.0 ]
 }
 
+[sub_resource type="DynamicFont" id=3]
+size = 36
+outline_size = 2
+outline_color = Color( 1, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:custom_fonts/font:outline_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "flash"
+length = 0.8
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:custom_colors/font_outline_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:custom_fonts/font:outline_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=4]
+size = 36
+outline_size = 2
+outline_color = Color( 1, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:custom_fonts/font:outline_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "flash"
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:custom_colors/font_outline_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:custom_fonts/font:outline_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ) ]
+}
+
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="UIContainer" type="CanvasLayer" parent="."]
+
+[node name="RootSelector" parent="UIContainer" instance=ExtResource( 4 )]
+position = Vector2( 10, 12 )
+scale = Vector2( 0.65, 0.65 )
 
 [node name="DayCycle" type="Sprite" parent="."]
 position = Vector2( 746, 1463 )
@@ -88,11 +197,46 @@ position = Vector2( 0, 500 )
 position = Vector2( 800, 289 )
 scale = Vector2( 1, 0.85 )
 
-[node name="UIContainer" type="CanvasLayer" parent="."]
+[node name="AllySpawners" type="Node2D" parent="."]
+script = ExtResource( 9 )
 
-[node name="RootSelector" parent="UIContainer" instance=ExtResource( 4 )]
-position = Vector2( 10, 12 )
-scale = Vector2( 0.65, 0.65 )
+[node name="AllyLeftSpawner" type="Node2D" parent="AllySpawners"]
+position = Vector2( 680, 476 )
+
+[node name="AllyRightSpawner" type="Node2D" parent="AllySpawners"]
+position = Vector2( 912, 476 )
+
+[node name="SpawnQLabel" type="Label" parent="AllySpawners"]
+margin_left = 709.0
+margin_top = 356.0
+margin_right = 749.0
+margin_bottom = 385.0
+custom_fonts/font = SubResource( 3 )
+text = "Q"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AllySpawners/SpawnQLabel"]
+anims/RESET = SubResource( 5 )
+anims/flash = SubResource( 6 )
+
+[node name="SpawnDLabel" type="Label" parent="AllySpawners"]
+margin_left = 845.0
+margin_top = 356.0
+margin_right = 885.0
+margin_bottom = 385.0
+custom_fonts/font = SubResource( 4 )
+text = "D"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AllySpawners/SpawnDLabel"]
+anims/RESET = SubResource( 7 )
+anims/flash = SubResource( 8 )
 
 [node name="EnemySpawners" type="Node2D" parent="."]
 script = ExtResource( 7 )
@@ -106,4 +250,4 @@ position = Vector2( 1660, 472 )
 [node name="ExperienceTick" type="Timer" parent="."]
 
 [node name="OST" type="AudioStreamPlayer" parent="."]
-script = ExtResource( 8 )
+script = ExtResource( 10 )

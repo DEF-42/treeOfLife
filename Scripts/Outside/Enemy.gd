@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 
-export var speed: int = 20
+export var speed: int = 10
 
 var direction = Vector2.ZERO
 var spawner: String

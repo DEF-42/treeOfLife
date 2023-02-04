@@ -12,7 +12,6 @@ func _ready():
 
 ### SIGNALS ###
 func _on_activate_enemy_spawner(spawner: Node2D):
-	print("enemyLeftSpawner", spawner)
 	enemySpawner = spawner
 	var instance = termite.instance()
 	spawner.add_child(instance)

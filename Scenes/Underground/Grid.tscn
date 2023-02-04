@@ -11,7 +11,17 @@
 [node name="Grid" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="UndergroundSprite" type="Sprite" parent="."]
+[node name="UndergroundSprites" type="Node2D" parent="."]
+
+[node name="UndergroundSprite3" type="Sprite" parent="UndergroundSprites"]
+position = Vector2( 800, 2348 )
+texture = ExtResource( 5 )
+
+[node name="UndergroundSprite2" type="Sprite" parent="UndergroundSprites"]
+position = Vector2( 800, 1476 )
+texture = ExtResource( 5 )
+
+[node name="UndergroundSprite" type="Sprite" parent="UndergroundSprites"]
 position = Vector2( 800, 644 )
 texture = ExtResource( 5 )
 
