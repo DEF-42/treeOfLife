@@ -102,3 +102,5 @@ position = Vector2( 44, 465 )
 
 [node name="EnemyRightSpawner" type="Node2D" parent="EnemySpawners"]
 position = Vector2( 1548, 465 )
+
+[node name="ExperienceTick" type="Timer" parent="."]
