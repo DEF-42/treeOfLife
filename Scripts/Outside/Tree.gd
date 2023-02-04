@@ -15,4 +15,5 @@ func _process(_delta):
 ### SIGNALS ###
 func _on_hurt_tree(spritePath: String):
 	$ArbreArea/Arbre/AnimationPlayer.play("hurt")
+	$HurtTree.play()
 	sprite_path = spritePath
