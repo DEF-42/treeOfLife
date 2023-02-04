@@ -16,3 +16,5 @@ signal spawn_ally(spawnerName)
 
 signal display_battle(position)
 signal finish_battle()
+
+signal hurt_tree(treeSprite)

@@ -36,13 +36,24 @@ func _process(delta):
 	if collision:
 		if collision.collider.name == "ArbreArea":
 			GAME.set_tree_hp(GAME.get_tree_hp() - 1)
+			# On change l'état de l'arbre en fonction des dégâts
+			EVENTS.emit_signal("hurt_tree", _get_tree_sprite())
 			EVENTS.emit_signal("kill_enemy")
 
+
+func _get_tree_sprite() -> String:
+	var tree_hp = GAME.get_tree_hp()
+	var sprite_path = "res://Assets/Outside/Arbre/grosArbre1HP.png"
+	if tree_hp == 3:
+		sprite_path = "res://Assets/Outside/Arbre/grosArbre.png"
+	elif tree_hp == 2:
+		sprite_path = "res://Assets/Outside/Arbre/grosArbre2HP.png"
+	print("sprite_path ", sprite_path)
+	return sprite_path
 
 ### SIGNALS ###
 func _on_spawn_enemy(enemySpawner: String):
 	var random_number = rng.randi_range(1, ants_dictionary.size())
-	print(random_number)
 	$Sprite.set_texture(ants_dictionary[random_number])
 	if enemySpawner == null:
 		spawner = "EnemyLeftSpawner"
