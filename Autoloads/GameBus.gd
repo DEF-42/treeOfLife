@@ -1,6 +1,7 @@
 extends Node
 
 
+var available_ants: int = 3 setget set_available_ants, get_available_ants
 var can_create_root: bool = true setget set_can_create_root, get_can_create_root
 # True = Jour, False = Nuit
 var day_cycle_state: bool = true setget set_day_cycle_state, get_day_cycle_state
@@ -12,6 +13,12 @@ var grid = []
 
 
 ### ACCESSORS ###
+func set_available_ants(val: int):
+	if val != available_ants:
+		available_ants = val
+func get_available_ants() -> int:
+	return available_ants
+
 func set_can_create_root(val: bool):
 	if val != can_create_root:
 		can_create_root = val

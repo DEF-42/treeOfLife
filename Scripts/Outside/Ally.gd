@@ -30,7 +30,6 @@ func _process(delta):
 
 ### SIGNALS ###
 func _on_spawn_ally(allySpawner: String):
-	print("spawner", allySpawner)
 	if allySpawner == null:
 		spawner = "AllyLeftSpawner"
 	else: spawner = allySpawner
