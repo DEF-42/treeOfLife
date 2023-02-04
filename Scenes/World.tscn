@@ -13,4 +13,7 @@ scale = Vector2( 0.4, 0.4 )
 [node name="Grid" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 500 )
 
-[node name="RootSelector" parent="." instance=ExtResource( 2 )]
+[node name="UIContainer" type="CanvasLayer" parent="."]
+
+[node name="RootSelector" parent="UIContainer" instance=ExtResource( 2 )]
+position = Vector2( 10, 12 )
