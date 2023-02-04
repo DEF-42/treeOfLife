@@ -26,7 +26,9 @@ func _process(_delta):
 			else: direction = Vector2.ZERO
 		if Input.is_action_just_pressed("ui_down"):
 			$GridSelectorMovement.stream = VERTICAL_MOVEMENT_SOUND
-			direction = DOWN
+			if global_position.y < 2960:
+				direction = DOWN
+			else: direction = Vector2.ZERO
 		if Input.is_action_just_pressed("ui_left"):
 			$GridSelectorMovement.stream = HORIZONTAL_MOVEMENT_SOUND
 			if global_position.x > 0:
