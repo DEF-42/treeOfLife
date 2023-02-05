@@ -15,7 +15,7 @@ func _ready():
 		x = x - (x % int(GAME.cell_size.x))
 		var y = GAME.cell_size.y * i
 		if (y == 0):
-			y = 80
+			y = GAME.cell_size.y
 		else:
 			y = y + resource_min_distance
 		spawn_point_instance.translate(Vector2(x, y))
