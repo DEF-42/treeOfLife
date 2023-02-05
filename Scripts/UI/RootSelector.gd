@@ -4,13 +4,28 @@ const MAX_REFRESH = 3
 
 var is_day = true
 var can_rotate_root: bool = false
-var root_I_sprite = preload("res://Assets/Underground/root_I.png")
-var root_L_sprite = preload("res://Assets/Underground/root_L.png")
-var root_T_sprite = preload("res://Assets/Underground/root_T.png")
+#var root_I_sprite = preload("res://Assets/Underground/root_I.png")
+#var root_L_sprite = preload("res://Assets/Underground/root_L.png")
+#var root_T_sprite = preload("res://Assets/Underground/root_T.png")
 var root_dictionary = {
-	1: root_I_sprite,
-	2: root_L_sprite,
-	3: root_T_sprite,
+	# T roots
+	1: {
+		1: Rect2(22, 16, GAME.cell_size.x, GAME.cell_size.y),
+		2: Rect2(121, 16, GAME.cell_size.x, GAME.cell_size.y),
+		3: Rect2(222, 19, GAME.cell_size.x, GAME.cell_size.y),
+	},
+	# L roots
+	2: {
+		1: Rect2(794, 18, GAME.cell_size.x, GAME.cell_size.y),
+		2: Rect2(802, 90, GAME.cell_size.x, GAME.cell_size.y),
+		3: Rect2(713, 259, GAME.cell_size.x, GAME.cell_size.y),
+	},
+	# I roots
+	3: {
+		1: Rect2(510, 33, GAME.cell_size.x, GAME.cell_size.y),
+		2: Rect2(591, 33, GAME.cell_size.x, GAME.cell_size.y),
+		3: Rect2(510, 120, GAME.cell_size.x, GAME.cell_size.y),
+	}
 }
 var rng = RandomNumberGenerator.new()
 var available_refresh_counter: int = 0 setget set_available_refresh_counter, get_available_refresh_counter
@@ -57,17 +72,20 @@ func _create_root(root: Node2D):
 
 func _randomize_root(root: Node2D):
 	var root_sprite = root.get_child(0)
-	root.get_child(0).texture = _get_random_root_texture()
+	root.get_child(0).region_rect = _get_random_root_texture()
 	if can_rotate_root:
 		root.rotate(_get_random_root_rotation())
+	_define_available_link(root)
 
 func _randomize_all_roots():
 	for root in $RootsGroup.get_children():
 		_randomize_root(root)
 	
 func _get_random_root_texture() -> StreamTexture:
-	var random_number = rng.randi_range(1, root_dictionary.size())
-	return root_dictionary.get(random_number)
+	var random_root_type = rng.randi_range(1, root_dictionary.size())
+	var root_type_variations_dictionary = root_dictionary.get(random_root_type)
+	var random_variation = rng.randi_range(1, root_type_variations_dictionary.size())
+	return root_type_variations_dictionary.get(random_variation)
 	
 func _get_random_root_rotation() -> float:
 	var random_number = rng.randi_range(0, 3)
@@ -76,6 +94,8 @@ func _get_random_root_rotation() -> float:
 func _decrement_available_refresh_counter():
 	set_available_refresh_counter(get_available_refresh_counter() - 1)
 
+func _define_available_link(root: Node2D):
+	print("définition des liens possibles")
 
 ### GETTERS / SETTERS ###
 func set_available_refresh_counter(val: int):
