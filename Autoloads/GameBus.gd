@@ -1,5 +1,6 @@
 extends Node
 
+const ROOT = "root"
 const ROCK = "rock"
 const WATER = "water"
 const SEDIMENT = "sediment"
@@ -15,6 +16,7 @@ var day_cycle_state: bool = true setget set_day_cycle_state, get_day_cycle_state
 var tree_hp: int = 3 setget set_tree_hp, get_tree_hp
 var tree_xp: int = 0 setget set_tree_xp, get_tree_xp
 var sediments: int = 0
+var water: int = 0
 
 var cell_size: Vector2 = Vector2(80, 80)
 var grid = []
@@ -91,3 +93,6 @@ func invert_day_state():
 
 func increment_sediment():
 	sediments = sediments + 1
+
+func increment_water():
+	water = water + 1

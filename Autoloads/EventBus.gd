@@ -3,6 +3,7 @@ extends Node
 
 signal create_root(texture)
 signal sediment_linked()
+signal water_linked()
 
 signal day_state_changed(state)
 

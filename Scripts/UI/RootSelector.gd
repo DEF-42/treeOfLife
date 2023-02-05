@@ -3,10 +3,6 @@ extends Node2D
 const MAX_REFRESH = 3
 
 var is_day = true
-var can_rotate_root: bool = false
-#var root_I_sprite = preload("res://Assets/Underground/root_I.png")
-#var root_L_sprite = preload("res://Assets/Underground/root_L.png")
-#var root_T_sprite = preload("res://Assets/Underground/root_T.png")
 var root_dictionary = {
 	# T roots
 	1: {
@@ -17,7 +13,7 @@ var root_dictionary = {
 	# L roots
 	2: {
 		1: Rect2(794, 18, GAME.cell_size.x, GAME.cell_size.y),
-		2: Rect2(802, 90, GAME.cell_size.x, GAME.cell_size.y),
+		2: Rect2(802, 98, GAME.cell_size.x, GAME.cell_size.y),
 		3: Rect2(713, 259, GAME.cell_size.x, GAME.cell_size.y),
 	},
 	# I roots
@@ -34,7 +30,6 @@ var available_refresh_counter: int = 0 setget set_available_refresh_counter, get
 func _ready():
 	rng.randomize()
 	_randomize_all_roots()
-	can_rotate_root = true
 	set_available_refresh_counter(MAX_REFRESH)
 	EVENTS.connect("day_state_changed", self, "_on_day_state_changed")
 
@@ -73,15 +68,14 @@ func _create_root(root: Node2D):
 func _randomize_root(root: Node2D):
 	var root_sprite = root.get_child(0)
 	root.get_child(0).region_rect = _get_random_root_texture()
-	if can_rotate_root:
-		root.rotate(_get_random_root_rotation())
+	root.rotate(_get_random_root_rotation())
 	_define_available_link(root)
 
 func _randomize_all_roots():
 	for root in $RootsGroup.get_children():
 		_randomize_root(root)
 	
-func _get_random_root_texture() -> StreamTexture:
+func _get_random_root_texture() -> Rect2:
 	var random_root_type = rng.randi_range(1, root_dictionary.size())
 	var root_type_variations_dictionary = root_dictionary.get(random_root_type)
 	var random_variation = rng.randi_range(1, root_type_variations_dictionary.size())
@@ -95,7 +89,78 @@ func _decrement_available_refresh_counter():
 	set_available_refresh_counter(get_available_refresh_counter() - 1)
 
 func _define_available_link(root: Node2D):
-	print("définition des liens possibles")
+	var root_sprite_rect = root.get_child(0).region_rect
+	var root_type: String
+	
+	for root_type_index in root_dictionary:
+		var root_type_variations = root_dictionary.get(root_type_index)
+		for variation_index in root_type_variations:
+			var variation_rect = root_type_variations.get(variation_index)
+			if (variation_rect.has_point(root_sprite_rect.position)):
+				if (root_type_index == 1):
+					root_type = "T"
+				elif (root_type_index == 2):
+					root_type = "L"
+				elif (root_type_index == 3):
+					root_type = "I"
+				break
+	
+	var root_rotation = int(root.rotation_degrees)
+	while root_rotation >= 360:
+		root_rotation = root_rotation - 360
+	if (root_type == "T"):
+		if (root_rotation == 0):
+			root.can_link_left = true
+			root.can_link_top = false
+			root.can_link_right = true
+			root.can_link_bottom = true
+		elif (root_rotation == 90):
+			root.can_link_left = true
+			root.can_link_top = true
+			root.can_link_right = false
+			root.can_link_bottom = true
+		elif (root_rotation == 180):
+			root.can_link_left = true
+			root.can_link_top = true
+			root.can_link_right = true
+			root.can_link_bottom = false
+		elif (root_rotation == 270):
+			root.can_link_left = false
+			root.can_link_top = true
+			root.can_link_right = true
+			root.can_link_bottom = true
+	elif (root_type == "L"):
+		if (root_rotation == 0):
+			root.can_link_left = true
+			root.can_link_top = false
+			root.can_link_right = false
+			root.can_link_bottom = true
+		elif (root_rotation == 90):
+			root.can_link_left = true
+			root.can_link_top = true
+			root.can_link_right = false
+			root.can_link_bottom = false
+		elif (root_rotation == 180):
+			root.can_link_left = false
+			root.can_link_top = true
+			root.can_link_right = true
+			root.can_link_bottom = false
+		elif (root_rotation == 270):
+			root.can_link_left = false
+			root.can_link_top = false
+			root.can_link_right = true
+			root.can_link_bottom = true
+	elif (root_type == "I"):
+		if (root_rotation == 0 || root_rotation == 180):
+			root.can_link_left = false
+			root.can_link_top = true
+			root.can_link_right = false
+			root.can_link_bottom = true
+		elif (root_rotation == 90 || root_rotation == 20):
+			root.can_link_left = true
+			root.can_link_top = false
+			root.can_link_right = true
+			root.can_link_bottom = false
 
 ### GETTERS / SETTERS ###
 func set_available_refresh_counter(val: int):

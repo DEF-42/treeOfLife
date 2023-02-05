@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/SFX_Placer_Interdit_Rock.wav-58ed58796cbbbc4d2cd6b013b74ed144.sample"
+
+[deps]
+
+source_file="res://Sounds/UI/SFX_Placer_Interdit_Rock.wav"
+dest_files=[ "res://.import/SFX_Placer_Interdit_Rock.wav-58ed58796cbbbc4d2cd6b013b74ed144.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

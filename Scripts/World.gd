@@ -14,6 +14,7 @@ func _ready():
 	$ExperienceTick.connect("timeout", self, "_on_experience_tick")
 	EVENTS.connect("day_state_changed", self, "_on_day_state_changed")
 	EVENTS.connect("sediment_linked", self, "_on_sediment_linked")
+	EVENTS.connect("water_linked", self, "_on_water_linked")
 	EVENTS.connect("display_battle", self, "_on_display_battle")
 	EVENTS.connect("finish_battle", self, "_on_finish_battle")
 
@@ -60,3 +61,6 @@ func _on_sediment_linked():
 func _on_experience_tick():
 	GAME.set_tree_xp(GAME.get_tree_xp() + (experience_step * GAME.sediments))
 	print("de l'exp !", GAME.get_tree_xp())
+
+func _on_water_linked():
+	print("De l'eau ! ", GAME.water)

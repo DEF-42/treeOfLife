@@ -9,4 +9,4 @@ script = ExtResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 510, 33, 60, 80 )
+region_rect = Rect2( 510, 120, 60, 80 )

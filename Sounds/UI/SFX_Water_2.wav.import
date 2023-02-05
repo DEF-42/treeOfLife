@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/SFX_Placer_Interdit.wav-a8c9b03e976fd5e46c08ee3622113da1.sample"
+path="res://.import/SFX_Water_2.wav-03bef92f7738929486d9001dfae9f6d8.sample"
 
 [deps]
 
-source_file="res://Sounds/UI/SFX_Placer_Interdit.wav"
-dest_files=[ "res://.import/SFX_Placer_Interdit.wav-a8c9b03e976fd5e46c08ee3622113da1.sample" ]
+source_file="res://Sounds/UI/SFX_Water_2.wav"
+dest_files=[ "res://.import/SFX_Water_2.wav-03bef92f7738929486d9001dfae9f6d8.sample" ]
 
 [params]
 
