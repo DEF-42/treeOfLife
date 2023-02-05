@@ -15,5 +15,10 @@ func _process(_delta):
 ### SIGNALS ###
 func _on_hurt_tree(spritePath: String):
 	$ArbreArea/Arbre/AnimationPlayer.play("hurt")
-	$HurtTree.play()
+	if spritePath == "res://Assets/Outside/Arbre/grosArbre2HP.png":
+		$HurtTreeLvl1.play()
+	elif spritePath == "res://Assets/Outside/Arbre/grosArbre1HP.png":
+		$HurtTreeLvl2.play()
+	else:
+		$HurtTreeLvl3.play()
 	sprite_path = spritePath
