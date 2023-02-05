@@ -47,7 +47,7 @@ func _create_root(root: Node2D):
 		_randomize_root(root)
 
 func _randomize_root(root: Node2D):
-	if root.get_child(0) != null:
+	if root.get_child_count() > 0 && root.get_child(0) != null:
 		var root_sprite = root.get_child(0)	
 		root.get_child(0).region_rect = GAME._get_random_root_texture(rng)
 		root.rotate(_get_random_root_rotation())

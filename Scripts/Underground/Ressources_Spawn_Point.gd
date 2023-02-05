@@ -1,12 +1,13 @@
 extends Node2D
 
+export var resource_type: String
+
 var resource_scene = preload("res://Scenes/Underground/Ressource.tscn")
 var rng = RandomNumberGenerator.new()
 
 
 func _ready():
 	rng.randomize()
-	var resource_type = _randomize_resource_type()
 	var minimum = 1
 	var maximum = 9
 	if (resource_type == GAME.MAYA_PLATE):
@@ -37,10 +38,3 @@ func _ready():
 		GAME._add_to_grid(global_position, resource_instance)
 		if (i % 3 == 2):
 			current_row = current_row + 1
-
-func _randomize_resource_type() -> String:
-	var random_index = rng.randi_range(0, GAME.resource_types.size() - 1)
-	var selected_resource = GAME.resource_types[random_index]
-	if (selected_resource == GAME.MAYA_PLATE):
-		GAME.resource_types.erase(GAME.MAYA_PLATE)
-	return selected_resource

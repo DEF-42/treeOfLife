@@ -22,25 +22,25 @@ var mushrooms: int = 0
 
 var cell_size: Vector2 = Vector2(80, 80)
 var grid = []
-var passed_nights = -1
+var passed_nights = 0
 var root_sprites_dictionary = {
 	# T roots
 	1: {
-		1: Rect2(22, 16, cell_size.x, cell_size.y),
-		2: Rect2(121, 16, cell_size.x, cell_size.y),
-		3: Rect2(222, 19, cell_size.x, cell_size.y),
+		1: Rect2(22, 10, cell_size.x, cell_size.y),
+		2: Rect2(121, 10, cell_size.x, cell_size.y),
+		3: Rect2(222, 10, cell_size.x, cell_size.y),
 	},
 	# L roots
 	2: {
-		1: Rect2(794, 18, cell_size.x, cell_size.y),
-		2: Rect2(802, 98, cell_size.x, cell_size.y),
-		3: Rect2(713, 259, cell_size.x, cell_size.y),
+		1: Rect2(794, 13, cell_size.x, cell_size.y),
+		2: Rect2(802, 108, cell_size.x, cell_size.y),
+		3: Rect2(713, 251, cell_size.x, cell_size.y),
 	},
 	# I roots
 	3: {
-		1: Rect2(510, 33, cell_size.x, cell_size.y),
-		2: Rect2(591, 33, cell_size.x, cell_size.y),
-		3: Rect2(510, 120, cell_size.x, cell_size.y),
+		1: Rect2(500, 33, cell_size.x, cell_size.y),
+		2: Rect2(581, 33, cell_size.x, cell_size.y),
+		3: Rect2(500, 120, cell_size.x, cell_size.y),
 	}
 }
 
@@ -111,7 +111,7 @@ func can_place_root(position_to_place: Vector2, root: Node2D) -> bool:
 		
 	# En Dessous
 	var bottom_cell_position = Vector2(position_to_place.x, position_to_place.y + cell_size.y)
-	var bottom_cell = get_in_grid(right_cell_position)
+	var bottom_cell = get_in_grid(bottom_cell_position)
 	if (root.can_link_bottom && bottom_cell != null && bottom_cell.node.type == ROOT && bottom_cell.node.can_link_top):
 		return true
 	

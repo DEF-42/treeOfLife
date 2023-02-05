@@ -5,7 +5,7 @@ const root_placed_on_root := preload("res://Sounds/UI/SFX_Placer_Interdit_Racine
 const root_placed_on_dirt := preload("res://Sounds/UI/SFX_Placer_Racine_2.wav")
 const root_placed_on_sediment := preload("res://Sounds/UI/sediments.wav")
 const root_placed_on_mushroom := preload("res://Sounds/UI/Champi.wav")
-#const root_placed_on_maya_plate := preload()
+const root_placed_on_maya_plate := preload("res://Sounds/UI/Maya.wav")
 const ressources_spawn_point_scene := preload("res://Scenes/Underground/Ressources_Spawn_Point.tscn")
 const ressources_spawn_number = 50
 const root_scene := preload("res://Scenes/Underground/Items/Root.tscn")
@@ -24,14 +24,22 @@ func _ready():
 	_place_first_root()
 	
 	for i in range(ressources_spawn_number):
-		var spawn_point_instance = ressources_spawn_point_scene.instance()
 		var x = rng.randi_range(0, (1600 - (GAME.cell_size.x * 3)))
 		x = x - (x % int(GAME.cell_size.x))
 		var y = GAME.cell_size.y * i
 		if (y == 0):
-			y = GAME.cell_size.y
+			y = GAME.cell_size.y * 3
 		else:
 			y = y + resource_min_distance
+			
+		var resource_type = _randomize_resource_type()
+		
+		if (y <= GAME.cell_size.y * 8):
+			while resource_type == GAME.MAYA_PLATE:
+				resource_type = _randomize_resource_type()
+			
+		var spawn_point_instance = ressources_spawn_point_scene.instance()
+		spawn_point_instance.resource_type = resource_type
 		spawn_point_instance.translate(Vector2(x, y))
 		$".".add_child(spawn_point_instance)
 
@@ -46,7 +54,7 @@ func _on_create_root(root: Node2D):
 			EVENTS.emit_signal("sediment_linked")
 			if ($RootPlacedSound.stream != root_placed_on_sediment):
 				$RootPlacedSound.stream = root_placed_on_sediment
-		if (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.MUSHROOM)):
+		elif (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.MUSHROOM)):
 			GAME.increment_mushrooms()
 			EVENTS.emit_signal("mushroom_linked")
 			if ($RootPlacedSound.stream != root_placed_on_mushroom):
@@ -58,6 +66,10 @@ func _on_create_root(root: Node2D):
 			var stream = root_placed_on_water_variations.get(random_index)
 			if ($RootPlacedSound.stream != stream):
 				$RootPlacedSound.stream = stream
+		elif (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.MAYA_PLATE)):
+			EVENTS.emit_signal("maya_plate_found")
+			if ($RootPlacedSound.stream != root_placed_on_maya_plate):
+				$RootPlacedSound.stream = root_placed_on_maya_plate
 		elif ($RootPlacedSound.stream != root_placed_on_dirt):
 				$RootPlacedSound.stream = root_placed_on_dirt
 		
@@ -75,6 +87,8 @@ func _on_create_root(root: Node2D):
 		elif GAME.check_cell_contains_node_type($GridKinematic.position, GAME.ROOT):
 			if ($RootPlacedForbiddenSound.stream != root_placed_on_root):
 				$RootPlacedForbiddenSound.stream = root_placed_on_root
+		else:
+			$RootPlacedForbiddenSound.stream = null
 		$RootPlacedForbiddenSound.play()
 		GAME.set_can_create_root(false)
 
@@ -99,3 +113,10 @@ func _place_first_root():
 	add_child_below_node($".", first_root)
 	GAME._add_to_grid(Vector2(first_root.position.x - 40, first_root.position.y - 40), first_root)
 	GAME.set_can_create_root(true)
+
+func _randomize_resource_type() -> String:
+	var random_index = rng.randi_range(0, GAME.resource_types.size() - 1)
+	var selected_resource = GAME.resource_types[random_index]
+	if (selected_resource == GAME.MAYA_PLATE):
+		GAME.resource_types.erase(GAME.MAYA_PLATE)
+	return selected_resource
