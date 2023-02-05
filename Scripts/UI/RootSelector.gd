@@ -2,7 +2,7 @@ extends Node2D
 
 const MAX_REFRESH = 3
 
-var can_create_root: bool = true
+var is_day = true
 var can_rotate_root: bool = false
 var root_I_sprite = preload("res://Assets/Underground/root_I.png")
 var root_L_sprite = preload("res://Assets/Underground/root_L.png")
@@ -26,9 +26,9 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("first_root"):
 		_create_root($RootsGroup/Root)
-	if Input.is_action_just_pressed("second_root"):
+	if is_day && Input.is_action_just_pressed("second_root"):
 		_create_root($RootsGroup/Root2)
-	if Input.is_action_just_pressed("third_root"):
+	if is_day && Input.is_action_just_pressed("third_root"):
 		_create_root($RootsGroup/Root3)
 	if Input.is_action_just_pressed("refresh_roots"):
 		if get_available_refresh_counter() == 0:
@@ -38,9 +38,15 @@ func _process(delta):
 
 
 ### SIGNALS ###
-func _on_day_state_changed(state: bool):
-	if state:
+func _on_day_state_changed(_is_day: bool):
+	is_day = _is_day
+	if _is_day:
 		set_available_refresh_counter(MAX_REFRESH)
+		$RootsGroup/Root2.set_modulate("ffffff")
+		$RootsGroup/Root3.set_modulate("ffffff")
+	else:
+		$RootsGroup/Root2.set_modulate("4ae8d6d6")
+		$RootsGroup/Root3.set_modulate("4ae8d6d6")
 
 
 ### FUNCTIONS ###
