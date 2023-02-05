@@ -21,6 +21,7 @@ var mushrooms: int = 0
 
 var cell_size: Vector2 = Vector2(80, 80)
 var grid = []
+var passed_nights = -1
 
 
 ### ACCESSORS ###
@@ -107,6 +108,9 @@ func increment_sediment():
 
 func increment_water():
 	water = water + 1
-	
+
 func increment_mushrooms():
 	mushrooms = mushrooms + 1
+
+func increment_passed_nights():
+	passed_nights = passed_nights + 1

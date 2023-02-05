@@ -39,7 +39,7 @@ func _createEnemyInstance():
 ### SIGNALS ###
 func _on_day_state_changed(state: bool):
 	if state:
-		pass
+		GAME.increment_passed_nights()
 	else:
 		_createEnemyInstance()
 		yield(get_tree().create_timer(9.0), "timeout")
