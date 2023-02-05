@@ -46,7 +46,7 @@ func _on_create_root(root: Node2D):
 			EVENTS.emit_signal("sediment_linked")
 			if ($RootPlacedSound.stream != root_placed_on_sediment):
 				$RootPlacedSound.stream = root_placed_on_sediment
-		if (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.MUSHROOM)):
+		elif (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.MUSHROOM)):
 			GAME.increment_mushrooms()
 			EVENTS.emit_signal("mushroom_linked")
 			if ($RootPlacedSound.stream != root_placed_on_mushroom):
@@ -75,6 +75,8 @@ func _on_create_root(root: Node2D):
 		elif GAME.check_cell_contains_node_type($GridKinematic.position, GAME.ROOT):
 			if ($RootPlacedForbiddenSound.stream != root_placed_on_root):
 				$RootPlacedForbiddenSound.stream = root_placed_on_root
+		else:
+			$RootPlacedForbiddenSound.stream = null
 		$RootPlacedForbiddenSound.play()
 		GAME.set_can_create_root(false)
 

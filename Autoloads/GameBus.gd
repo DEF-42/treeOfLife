@@ -104,7 +104,7 @@ func can_place_root(position_to_place: Vector2, root: Node2D) -> bool:
 		
 	# En Dessous
 	var bottom_cell_position = Vector2(position_to_place.x, position_to_place.y + cell_size.y)
-	var bottom_cell = get_in_grid(right_cell_position)
+	var bottom_cell = get_in_grid(bottom_cell_position)
 	if (root.can_link_bottom && bottom_cell != null && bottom_cell.node.type == ROOT && bottom_cell.node.can_link_top):
 		return true
 	
