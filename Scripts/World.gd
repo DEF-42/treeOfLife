@@ -3,7 +3,6 @@ extends Node2D
 
 var battle := preload("res://Scenes/Outside/Battle.tscn")
 var battleSpawner: Node2D
-var experience: int = 0
 var experience_step: int = 10
 
 var rng = RandomNumberGenerator.new()
@@ -59,5 +58,5 @@ func _on_sediment_linked():
 		$ExperienceTick.start()
 
 func _on_experience_tick():
-	experience = experience + (experience_step * GAME.sediments)
-	print("de l'exp !", experience)
+	GAME.set_tree_xp(GAME.get_tree_xp() + (experience_step * GAME.sediments))
+	print("de l'exp !", GAME.get_tree_xp())

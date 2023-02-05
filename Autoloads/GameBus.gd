@@ -13,6 +13,7 @@ var can_create_root: bool = true setget set_can_create_root, get_can_create_root
 # True = Jour, False = Nuit
 var day_cycle_state: bool = true setget set_day_cycle_state, get_day_cycle_state
 var tree_hp: int = 3 setget set_tree_hp, get_tree_hp
+var tree_xp: int = 0 setget set_tree_xp, get_tree_xp
 var sediments: int = 0
 
 var cell_size: Vector2 = Vector2(80, 80)
@@ -44,6 +45,12 @@ func set_tree_hp(val: int):
 		tree_hp = val
 func get_tree_hp() -> int:
 	return tree_hp
+	
+func set_tree_xp(val: int):
+	if val != tree_xp:
+		tree_xp = val
+func get_tree_xp() -> int:
+	return tree_xp
 
 
 ### FUNCTIONS ###

@@ -202,8 +202,7 @@ color = Color( 0, 0, 0, 1 )
 position = Vector2( 0, 500 )
 
 [node name="Tree" parent="." instance=ExtResource( 3 )]
-position = Vector2( 800, 233 )
-scale = Vector2( 1, 1.1 )
+position = Vector2( 800, 246 )
 
 [node name="AllySpawners" type="Node2D" parent="."]
 script = ExtResource( 9 )
