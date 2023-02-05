@@ -56,4 +56,4 @@ func _on_finish_battle():
 	battleSpawner.queue_free()
 
 func _on_water_linked():
-	print("De l'eau ! ", GAME.water)
+	pass
