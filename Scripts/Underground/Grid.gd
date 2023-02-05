@@ -51,12 +51,12 @@ func _on_create_root(root: Node2D):
 				
 		if (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.SEDIMENT)):
 			GAME.increment_sediment()
-			EVENTS.emit_signal("sediment_linked")
 			if ($RootPlacedSound.stream != root_placed_on_sediment):
 				$RootPlacedSound.stream = root_placed_on_sediment
 		elif (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.MUSHROOM)):
+			if (GAME.get_tree_mushrooms() == 0):
+				EVENTS.emit_signal("mushroom_armor_gained")
 			GAME.increment_mushrooms()
-			EVENTS.emit_signal("mushroom_linked")
 			if ($RootPlacedSound.stream != root_placed_on_mushroom):
 				$RootPlacedSound.stream = root_placed_on_mushroom
 		elif (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.WATER)):

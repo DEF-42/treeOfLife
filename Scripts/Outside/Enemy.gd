@@ -35,9 +35,12 @@ func _process(delta):
 	var collision = move_and_collide(speed * direction * delta)
 	if collision:
 		if collision.collider.name == "ArbreArea":
-			GAME.set_tree_hp(GAME.get_tree_hp() - 1)
-			# On change l'état de l'arbre en fonction des dégâts
-			EVENTS.emit_signal("hurt_tree", _get_tree_sprite())
+			if GAME.get_tree_mushrooms() == 0:
+				GAME.set_tree_hp(GAME.get_tree_hp() - 1)
+				# On change l'état de l'arbre en fonction des dégâts
+				EVENTS.emit_signal("hurt_tree", _get_tree_sprite())
+			else:
+				GAME.decrement_tree_mushrooms()
 			EVENTS.emit_signal("kill_enemy")
 
 

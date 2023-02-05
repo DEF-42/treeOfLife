@@ -3,21 +3,16 @@ extends Node2D
 
 var battle := preload("res://Scenes/Outside/Battle.tscn")
 var battleSpawner: Node2D
-var experience_step: int = 10
 
 var rng = RandomNumberGenerator.new()
 
 
 func _ready():
-	GAME.init_tree_hp()
+	GAME.init_game()
 	rng.randomize()
 	$DayCycle/AnimationPlayer.play("DayCycleRotation")
-	$ExperienceTick.connect("timeout", self, "_on_experience_tick")
 	EVENTS.connect("day_state_changed", self, "_on_day_state_changed")
-	EVENTS.connect("sediment_linked", self, "_on_sediment_linked")
 	EVENTS.connect("water_linked", self, "_on_water_linked")
-	EVENTS.connect("mushroom_linked", self, "_on_mushroom_linked")
-	EVENTS.connect("maya_plate_found", self, "_on_maya_plate_found")
 	EVENTS.connect("display_battle", self, "_on_display_battle")
 	EVENTS.connect("finish_battle", self, "_on_finish_battle")
 
@@ -60,19 +55,5 @@ func _on_display_battle(position):
 func _on_finish_battle():
 	battleSpawner.queue_free()
 
-func _on_sediment_linked():
-	if ($ExperienceTick.is_stopped()):
-		$ExperienceTick.start()
-
-func _on_experience_tick():
-	GAME.set_tree_xp(GAME.get_tree_xp() + (experience_step * GAME.sediments))
-	print("de l'exp !", GAME.get_tree_xp())
-
 func _on_water_linked():
 	print("De l'eau ! ", GAME.water)
-
-func _on_mushroom_linked():
-	print("Du champi ! ", GAME.mushrooms)
-
-func _on_maya_plate_found():
-	print("La maya plate !")

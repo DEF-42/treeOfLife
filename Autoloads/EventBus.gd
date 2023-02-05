@@ -4,8 +4,9 @@ extends Node
 signal create_root(texture)
 signal sediment_linked()
 signal water_linked()
-signal mushroom_linked()
 signal maya_plate_found()
+signal mushroom_armor_gained()
+signal mushroom_armor_lost()
 
 signal day_state_changed(state)
 

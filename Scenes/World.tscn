@@ -223,8 +223,6 @@ position = Vector2( -60, 472 )
 [node name="EnemyRightSpawner" type="Node2D" parent="EnemySpawners"]
 position = Vector2( 1660, 472 )
 
-[node name="ExperienceTick" type="Timer" parent="."]
-
 [node name="OST" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 10 )
 
