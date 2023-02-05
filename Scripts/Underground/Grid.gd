@@ -96,11 +96,6 @@ func _place_first_root():
 		first_root.rotate(deg2rad(rotation_degrees))
 	
 	GAME._define_root_available_link(first_root)
-	print("left ", first_root.can_link_left)
-	print("top ", first_root.can_link_top)
-	print("right ", first_root.can_link_right)
-	print("bottom ", first_root.can_link_bottom)
-	print("------")
 	add_child_below_node($".", first_root)
 	GAME._add_to_grid(Vector2(first_root.position.x - 40, first_root.position.y - 40), first_root)
 	GAME.set_can_create_root(true)

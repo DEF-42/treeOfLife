@@ -22,7 +22,6 @@ func _process(delta):
 	var collision = move_and_collide(speed * direction * delta)
 	if collision:
 		if collision.collider.name == "EnemyKinematic":
-			print(collision.position)
 			EVENTS.emit_signal("kill_ally")
 			EVENTS.emit_signal("kill_enemy")
 			EVENTS.emit_signal("display_battle", collision.position)

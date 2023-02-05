@@ -251,11 +251,3 @@ func _define_root_available_link(root: Node2D):
 			root.can_link_top = false
 			root.can_link_right = true
 			root.can_link_bottom = false
-	
-	print("type ", root_type)
-	print("rotation ", root_rotation)
-	print("left ", root.can_link_left)
-	print("top ", root.can_link_top)
-	print("right ", root.can_link_right)
-	print("bottom ", root.can_link_bottom)
-	print("------")
