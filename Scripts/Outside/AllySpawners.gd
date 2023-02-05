@@ -1,6 +1,7 @@
 extends Node2D
 
 var fourmi = preload("res://Scenes/Outside/Ally.tscn")
+var renard = preload("res://Scenes/Outside/Fox.tscn")
 var allySpawner: Node2D
 
 
@@ -11,6 +12,11 @@ func _ready():
 	EVENTS.connect("kill_ally", self, "_on_kill_ally")
 
 func _process(delta):
+	var new_fox = GAME.get_available_fox() - 1
+	if Input.is_action_just_pressed("spawn_fox") and new_fox >= 0:
+		var instance = renard.instance()
+		$FoxSpawner.add_child(instance)
+		GAME.set_available_fox(new_fox)
 	# On supprime la fourmi si elle sort de l'écran
 	if allySpawner != null:
 		if allySpawner.get_children().size() > 0:

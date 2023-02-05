@@ -10,6 +10,9 @@ var spawner: String
 func _ready():
 	$Sprite/AnimationPlayer.play("walk")
 	EVENTS.connect("spawn_ally", self, "_on_spawn_ally")
+	var tree_node = get_tree().get_root().get_node("World").get_node("AllySpawners").get_node("FoxSpawner").get_node("Fox").get_node("KinematicBody2D")
+	if tree_node:
+		add_collision_exception_with(tree_node)
 
 func _process(delta):
 	direction = Vector2.ZERO

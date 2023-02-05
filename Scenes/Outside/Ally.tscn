@@ -52,6 +52,7 @@ __meta__ = {
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AllyKinematic"]
 stream = ExtResource( 3 )
+volume_db = -2.0
 autoplay = true
 
 [node name="Sprite" type="Sprite" parent="AllyKinematic"]
