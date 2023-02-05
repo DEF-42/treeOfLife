@@ -167,7 +167,6 @@ script = ExtResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="DayCycle"]
 reset_on_save = false
-playback_speed = 5.0
 method_call_mode = 1
 anims/DayCycleRotation = SubResource( 1 )
 anims/RESET = SubResource( 2 )
