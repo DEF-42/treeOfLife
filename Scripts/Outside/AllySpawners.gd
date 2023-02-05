@@ -5,8 +5,8 @@ var allySpawner: Node2D
 
 
 func _ready():
-	$SpawnQLabel/AnimationPlayer.play("flash")
-	$SpawnDLabel/AnimationPlayer.play("flash")
+	$Sprite/AnimationPlayer.play("flash")
+	$Sprite2/AnimationPlayer.play("flash")
 	EVENTS.connect("activate_ally_spawner", self, "_on_activate_ally_spawner")
 	EVENTS.connect("kill_ally", self, "_on_kill_ally")
 
