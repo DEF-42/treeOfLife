@@ -9,6 +9,7 @@ var rng = RandomNumberGenerator.new()
 
 
 func _ready():
+	GAME.init_tree_hp()
 	rng.randomize()
 	$DayCycle/AnimationPlayer.play("DayCycleRotation")
 	$ExperienceTick.connect("timeout", self, "_on_experience_tick")

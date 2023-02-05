@@ -6,6 +6,7 @@ const WATER = "water"
 const SEDIMENT = "sediment"
 const MUSHROOM = "mushroom"
 const MAYA_PLATE = "maya_plate"
+const DEFAULT_TREE_HP = 3
 
 var resource_types = [ROCK, WATER, SEDIMENT, MUSHROOM, MAYA_PLATE]
 
@@ -14,7 +15,7 @@ var available_fox: int = 0 setget set_available_fox, get_available_fox
 var can_create_root: bool = true setget set_can_create_root, get_can_create_root
 # True = Jour, False = Nuit
 var day_cycle_state: bool = true setget set_day_cycle_state, get_day_cycle_state
-var tree_hp: int = 3 setget set_tree_hp, get_tree_hp
+var tree_hp: int setget set_tree_hp, get_tree_hp
 var tree_xp: int = 0 setget set_tree_xp, get_tree_xp
 var sediments: int = 0
 var water: int = 0
@@ -76,6 +77,8 @@ func set_tree_hp(val: int):
 		tree_hp = val
 func get_tree_hp() -> int:
 	return tree_hp
+func init_tree_hp():
+	set_tree_hp(DEFAULT_TREE_HP)
 	
 func set_tree_xp(val: int):
 	if val != tree_xp:
