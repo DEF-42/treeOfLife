@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/renard.png-ba3a0a4514a2b562a75473952d93016f.stex"
+path="res://.import/sediment.png-fe33fed9a0a7a2bc5a0ecd1c72c291ce.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Outside/Enemy/renard.png"
-dest_files=[ "res://.import/renard.png-ba3a0a4514a2b562a75473952d93016f.stex" ]
+source_file="res://Assets/Underground/sediment.png"
+dest_files=[ "res://.import/sediment.png-fe33fed9a0a7a2bc5a0ecd1c72c291ce.stex" ]
 
 [params]
 
