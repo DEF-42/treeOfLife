@@ -24,14 +24,22 @@ func _ready():
 	_place_first_root()
 	
 	for i in range(ressources_spawn_number):
-		var spawn_point_instance = ressources_spawn_point_scene.instance()
 		var x = rng.randi_range(0, (1600 - (GAME.cell_size.x * 3)))
 		x = x - (x % int(GAME.cell_size.x))
 		var y = GAME.cell_size.y * i
 		if (y == 0):
-			y = GAME.cell_size.y
+			y = GAME.cell_size.y * 3
 		else:
 			y = y + resource_min_distance
+			
+		var resource_type = _randomize_resource_type()
+		
+		if (y <= GAME.cell_size.y * 8):
+			while resource_type == GAME.MAYA_PLATE:
+				resource_type = _randomize_resource_type()
+			
+		var spawn_point_instance = ressources_spawn_point_scene.instance()
+		spawn_point_instance.resource_type = resource_type
 		spawn_point_instance.translate(Vector2(x, y))
 		$".".add_child(spawn_point_instance)
 
@@ -105,3 +113,10 @@ func _place_first_root():
 	add_child_below_node($".", first_root)
 	GAME._add_to_grid(Vector2(first_root.position.x - 40, first_root.position.y - 40), first_root)
 	GAME.set_can_create_root(true)
+
+func _randomize_resource_type() -> String:
+	var random_index = rng.randi_range(0, GAME.resource_types.size() - 1)
+	var selected_resource = GAME.resource_types[random_index]
+	if (selected_resource == GAME.MAYA_PLATE):
+		GAME.resource_types.erase(GAME.MAYA_PLATE)
+	return selected_resource
