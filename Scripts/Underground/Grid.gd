@@ -43,14 +43,15 @@ func _on_create_root(root: Node2D):
 			EVENTS.emit_signal("sediment_linked")
 			if ($RootPlacedSound.stream != root_placed_on_sediment):
 				$RootPlacedSound.stream = root_placed_on_sediment
-		
-		if (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.WATER)):
+		elif (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.WATER)):
 			GAME.increment_water()
 			EVENTS.emit_signal("water_linked")
 			var random_index = rng.randi_range(1, root_placed_on_water_variations.size())
 			var stream = root_placed_on_water_variations.get(random_index)
 			if ($RootPlacedSound.stream != stream):
 				$RootPlacedSound.stream = stream
+		elif ($RootPlacedSound.stream != root_placed_on_dirt):
+				$RootPlacedSound.stream = root_placed_on_dirt
 		
 		duplicatedRoot.position = Vector2($GridKinematic.position.x + 40, $GridKinematic.position.y + 40)
 		add_child_below_node($".", duplicatedRoot)

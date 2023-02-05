@@ -83,7 +83,17 @@ func get_grid():
 
 
 func _add_to_grid(root_position: Vector2, node: Node2D):
-	grid.append({"position": _attribute_coordinates(root_position), "node": node})
+	var coordinated = _attribute_coordinates(root_position)
+	var is_new_in_grid = true
+	# Replace in grid if position exists
+	for cell in grid:
+		if cell.position == coordinated:
+			cell.node = node
+			is_new_in_grid = false
+			break
+	
+	if is_new_in_grid:
+		grid.append({"position": coordinated, "node": node})
 	
 func _attribute_coordinates(root_position: Vector2) -> Vector2:
 	return Vector2(root_position.x / cell_size.x, root_position.y / cell_size.y)
