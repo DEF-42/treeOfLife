@@ -27,6 +27,8 @@ func _process(_delta):
 		EVENTS.emit_signal("activate_ally_spawner", $AllySpawners/AllyLeftSpawner)
 	if Input.is_action_just_pressed("spawn_ally_right"):
 		EVENTS.emit_signal("activate_ally_spawner", $AllySpawners/AllyRightSpawner)
+	if Input.is_action_just_pressed("open_shop"):
+		$UIContainer/UnitsMarket.set_visible(!$UIContainer/UnitsMarket.visible)
 
 
 func _createEnemyInstance():

@@ -10,6 +10,7 @@ const MAYA_PLATE = "maya_plate"
 var resource_types = [ROCK, WATER, SEDIMENT, MUSHROOM, MAYA_PLATE]
 
 var available_ants: int = 3 setget set_available_ants, get_available_ants
+var available_fox: int = 0 setget set_available_fox, get_available_fox
 var can_create_root: bool = true setget set_can_create_root, get_can_create_root
 # True = Jour, False = Nuit
 var day_cycle_state: bool = true setget set_day_cycle_state, get_day_cycle_state
@@ -50,6 +51,12 @@ func set_available_ants(val: int):
 		available_ants = val
 func get_available_ants() -> int:
 	return available_ants
+
+func set_available_fox(val: int):
+	if val != available_fox:
+		available_fox = val
+func get_available_fox() -> int:
+	return available_fox
 
 func set_can_create_root(val: bool):
 	if val != can_create_root:
