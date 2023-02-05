@@ -23,6 +23,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("refresh_roots"):
 		if get_available_refresh_counter() == 0:
 			return
+		$RefreshRoots.play()
 		_randomize_all_roots()
 		_decrement_available_refresh_counter()
 

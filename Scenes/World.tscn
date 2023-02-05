@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Outside/time_circle.png" type="Texture" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://Scenes/UI/UnitsManager.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Outside/full_light.png" type="Texture" id=12]
 [ext_resource path="res://Assets/UI/round_ui.png" type="Texture" id=13]
+[ext_resource path="res://Sounds/foret_jour.mp3" type="AudioStream" id=14]
+[ext_resource path="res://Sounds/foret_nuit.mp3" type="AudioStream" id=15]
 
 [sub_resource type="Animation" id=1]
 resource_name = "DayCycleRotation"
@@ -289,3 +291,11 @@ energy = 0.9
 range_z_min = 0
 range_z_max = 3
 range_item_cull_mask = 2
+
+[node name="AmbientDay" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+volume_db = 4.5
+
+[node name="AmbientNight" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+volume_db = 4.5

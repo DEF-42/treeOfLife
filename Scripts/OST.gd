@@ -28,8 +28,12 @@ func _on_day_state_changed(state: bool):
 func _randomize_ost(state: bool):
 	var ost;
 	if (state):
+		$"../AmbientNight".stop()
+		$"../AmbientDay".play()
 		ost = DAY_SOUNDS.get(rng.randi_range(1, DAY_SOUNDS_SIZE))
 	else:
+		$"../AmbientDay".stop()
+		$"../AmbientNight".play()
 		ost = NIGHT_SOUNDS.get(rng.randi_range(1, NIGHT_SOUNDS_SIZE))
 	$".".stream = ost;
 	$".".play()

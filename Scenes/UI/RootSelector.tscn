@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Underground/Items/Root.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/roboto_26.tres" type="DynamicFont" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/UI/round_ui.png" type="Texture" id=5]
 [ext_resource path="res://Assets/UI/1-2-3_selector.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Roboto-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Sounds/UI/refresh.wav" type="AudioStream" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -83,3 +84,6 @@ margin_right = 513.0
 margin_bottom = 97.0
 custom_fonts/font = SubResource( 1 )
 text = "3"
+
+[node name="RefreshRoots" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
