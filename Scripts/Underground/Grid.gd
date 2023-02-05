@@ -5,7 +5,7 @@ const root_placed_on_root := preload("res://Sounds/UI/SFX_Placer_Interdit_Racine
 const root_placed_on_dirt := preload("res://Sounds/UI/SFX_Placer_Racine_2.wav")
 const root_placed_on_sediment := preload("res://Sounds/UI/sediments.wav")
 const root_placed_on_mushroom := preload("res://Sounds/UI/Champi.wav")
-#const root_placed_on_maya_plate := preload()
+const root_placed_on_maya_plate := preload("res://Sounds/UI/Maya.wav")
 const ressources_spawn_point_scene := preload("res://Scenes/Underground/Ressources_Spawn_Point.tscn")
 const ressources_spawn_number = 50
 const root_scene := preload("res://Scenes/Underground/Items/Root.tscn")
@@ -58,6 +58,10 @@ func _on_create_root(root: Node2D):
 			var stream = root_placed_on_water_variations.get(random_index)
 			if ($RootPlacedSound.stream != stream):
 				$RootPlacedSound.stream = stream
+		elif (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.MAYA_PLATE)):
+			EVENTS.emit_signal("maya_plate_found")
+			if ($RootPlacedSound.stream != root_placed_on_maya_plate):
+				$RootPlacedSound.stream = root_placed_on_maya_plate
 		elif ($RootPlacedSound.stream != root_placed_on_dirt):
 				$RootPlacedSound.stream = root_placed_on_dirt
 		

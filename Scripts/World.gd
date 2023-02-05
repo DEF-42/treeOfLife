@@ -16,6 +16,7 @@ func _ready():
 	EVENTS.connect("sediment_linked", self, "_on_sediment_linked")
 	EVENTS.connect("water_linked", self, "_on_water_linked")
 	EVENTS.connect("mushroom_linked", self, "_on_mushroom_linked")
+	EVENTS.connect("maya_plate_found", self, "_on_maya_plate_found")
 	EVENTS.connect("display_battle", self, "_on_display_battle")
 	EVENTS.connect("finish_battle", self, "_on_finish_battle")
 
@@ -69,3 +70,6 @@ func _on_water_linked():
 
 func _on_mushroom_linked():
 	print("Du champi ! ", GAME.mushrooms)
+
+func _on_maya_plate_found():
+	print("La maya plate !")
