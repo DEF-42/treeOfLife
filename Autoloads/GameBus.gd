@@ -17,6 +17,7 @@ var tree_hp: int = 3 setget set_tree_hp, get_tree_hp
 var tree_xp: int = 0 setget set_tree_xp, get_tree_xp
 var sediments: int = 0
 var water: int = 0
+var mushrooms: int = 0
 
 var cell_size: Vector2 = Vector2(80, 80)
 var grid = []
@@ -106,3 +107,6 @@ func increment_sediment():
 
 func increment_water():
 	water = water + 1
+	
+func increment_mushrooms():
+	mushrooms = mushrooms + 1
