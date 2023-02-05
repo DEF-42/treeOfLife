@@ -8,6 +8,8 @@ const root_placed_on_mushroom := preload("res://Sounds/UI/Champi.wav")
 #const root_placed_on_maya_plate := preload()
 const ressources_spawn_point_scene := preload("res://Scenes/Underground/Ressources_Spawn_Point.tscn")
 const ressources_spawn_number = 50
+const root_scene := preload("res://Scenes/Underground/Items/Root.tscn")
+
 var root_placed_on_water_variations = {
 	1: preload("res://Sounds/UI/SFX_Water_1.wav"),
 	2: preload("res://Sounds/UI/SFX_Water_2.wav"),
@@ -19,6 +21,7 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	rng.randomize()
 	EVENTS.connect("create_root", self, "_on_create_root")
+	_place_first_root()
 	
 	for i in range(ressources_spawn_number):
 		var spawn_point_instance = ressources_spawn_point_scene.instance()
@@ -35,7 +38,7 @@ func _ready():
 func _on_create_root(root: Node2D):
 	GAME.set_can_create_root(true)
 	var duplicatedRoot = root.duplicate()
-	if GAME.check_free_in_grid($GridKinematic.position):
+	if GAME.can_place_root($GridKinematic.position, duplicatedRoot):
 		$RootPlacedSound.stop()
 				
 		if (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.SEDIMENT)):
@@ -63,13 +66,41 @@ func _on_create_root(root: Node2D):
 		GAME._add_to_grid($GridKinematic.position, duplicatedRoot)
 		GAME.set_can_create_root(true)
 		$RootPlacedSound.play()
-	else: 
+	else:
+		duplicatedRoot.queue_free()
 		$RootPlacedForbiddenSound.stop()
 		if GAME.check_cell_contains_node_type($GridKinematic.position, GAME.ROCK):
 			if ($RootPlacedForbiddenSound.stream != root_placed_on_rock):
 				$RootPlacedForbiddenSound.stream = root_placed_on_rock
-		if GAME.check_cell_contains_node_type($GridKinematic.position, GAME.ROOT):
+		elif GAME.check_cell_contains_node_type($GridKinematic.position, GAME.ROOT):
 			if ($RootPlacedForbiddenSound.stream != root_placed_on_root):
 				$RootPlacedForbiddenSound.stream = root_placed_on_root
 		$RootPlacedForbiddenSound.play()
 		GAME.set_can_create_root(false)
+
+func _place_first_root():
+	var first_root = root_scene.instance()
+	var random_cell_under_tree = rng.randi_range(7, 12)
+	first_root.translate(Vector2(40 + GAME.cell_size.x * random_cell_under_tree, + 40))
+	first_root.get_child(0).region_rect = GAME._get_random_root_texture(rng)
+	var first_root_sprite_type = GAME._get_root_sprite_type(first_root.get_child(0).region_rect.position)
+	
+	var max_rotations = 0
+	if(first_root_sprite_type == "L"):
+		max_rotations = 2
+	elif(first_root_sprite_type == "T"):
+		max_rotations = 3
+	
+	if (max_rotations > 0):
+		var rotation_degrees = rng.randi_range(1, max_rotations) * 90
+		first_root.rotate(deg2rad(rotation_degrees))
+	
+	GAME._define_root_available_link(first_root)
+	print("left ", first_root.can_link_left)
+	print("top ", first_root.can_link_top)
+	print("right ", first_root.can_link_right)
+	print("bottom ", first_root.can_link_bottom)
+	print("------")
+	add_child_below_node($".", first_root)
+	GAME._add_to_grid(Vector2(first_root.position.x - 40, first_root.position.y - 40), first_root)
+	GAME.set_can_create_root(true)

@@ -37,4 +37,5 @@ func _on_activate_ally_spawner(spawner: Node2D):
 
 func _on_kill_ally():
 	var ally = allySpawner.get_child(0)
-	ally.queue_free()
+	if (ally):
+		ally.queue_free()
