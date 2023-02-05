@@ -2,6 +2,7 @@ extends Node2D
 
 const root_placed_on_rock := preload("res://Sounds/UI/SFX_Placer_Interdit_Rock.wav")
 const root_placed_on_root := preload("res://Sounds/UI/SFX_Placer_Interdit_Racine.wav")
+const root_placed_on_dirt_forbidden := preload("res://Sounds/UI/SFX_Deplacement_Interdit_Dirt.wav")
 const root_placed_on_dirt := preload("res://Sounds/UI/SFX_Placer_Racine_2.wav")
 const root_placed_on_sediment := preload("res://Sounds/UI/sediments.wav")
 const root_placed_on_mushroom := preload("res://Sounds/UI/Champi.wav")
@@ -88,7 +89,7 @@ func _on_create_root(root: Node2D):
 			if ($RootPlacedForbiddenSound.stream != root_placed_on_root):
 				$RootPlacedForbiddenSound.stream = root_placed_on_root
 		else:
-			$RootPlacedForbiddenSound.stream = null
+			$RootPlacedForbiddenSound.stream = root_placed_on_dirt_forbidden
 		$RootPlacedForbiddenSound.play()
 		GAME.set_can_create_root(false)
 
