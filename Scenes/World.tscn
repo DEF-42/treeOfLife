@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Outside/time_circle.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/Outside/AllySpawners.gd" type="Script" id=9]
 [ext_resource path="res://Scripts/OST.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/UI/UnitsManager.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Assets/Outside/full_light.png" type="Texture" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "DayCycleRotation"
@@ -171,14 +172,17 @@ __meta__ = {
 [node name="UIContainer" type="CanvasLayer" parent="."]
 
 [node name="RootSelector" parent="UIContainer" instance=ExtResource( 4 )]
+light_mask = 2
 scale = Vector2( 0.6, 0.6 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UnitsManager" parent="CanvasLayer" instance=ExtResource( 11 )]
+light_mask = 2
 position = Vector2( 1450, 0 )
 
 [node name="DayCycle" type="Sprite" parent="."]
+light_mask = 2
 position = Vector2( 746, 1463 )
 rotation = -1.39626
 scale = Vector2( 6.71576, 6.71576 )
@@ -192,6 +196,7 @@ anims/DayCycleRotation = SubResource( 1 )
 anims/RESET = SubResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 margin_left = -1751.0
 margin_top = 500.0
 margin_right = 4016.0
@@ -205,6 +210,7 @@ position = Vector2( 0, 500 )
 position = Vector2( 800, 246 )
 
 [node name="AllySpawners" type="Node2D" parent="."]
+z_index = 2
 script = ExtResource( 9 )
 
 [node name="AllyLeftSpawner" type="Node2D" parent="AllySpawners"]
@@ -246,6 +252,7 @@ anims/RESET = SubResource( 7 )
 anims/flash = SubResource( 8 )
 
 [node name="EnemySpawners" type="Node2D" parent="."]
+z_index = 2
 script = ExtResource( 7 )
 
 [node name="EnemyLeftSpawner" type="Node2D" parent="EnemySpawners"]
@@ -258,3 +265,12 @@ position = Vector2( 1660, 472 )
 
 [node name="OST" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 10 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 801, 462.5 )
+scale = Vector2( 5.24, 2.6925 )
+texture = ExtResource( 12 )
+energy = 0.9
+range_z_min = 0
+range_z_max = 3
+range_item_cull_mask = 2

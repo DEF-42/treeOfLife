@@ -41,6 +41,8 @@ tracks/0/keys = {
 radius = 24.0
 
 [node name="Enemy" type="Node2D"]
+light_mask = 2
+z_index = 1
 
 [node name="EnemyKinematic" type="KinematicBody2D" parent="."]
 script = ExtResource( 2 )
@@ -49,6 +51,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="EnemyKinematic"]
+light_mask = 2
 rotation = 0.20944
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )

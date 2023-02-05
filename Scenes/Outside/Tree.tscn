@@ -41,11 +41,13 @@ tracks/0/keys = {
 extents = Vector2( 114, 245.5 )
 
 [node name="Tree" type="Node2D"]
+z_index = 2
 script = ExtResource( 3 )
 
 [node name="ArbreArea" type="StaticBody2D" parent="."]
 
 [node name="Arbre" type="Sprite" parent="ArbreArea"]
+light_mask = 2
 position = Vector2( 0, 42 )
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 1 )
@@ -55,6 +57,7 @@ anims/RESET = SubResource( 2 )
 anims/hurt = SubResource( 3 )
 
 [node name="Fleurs" type="Sprite" parent="ArbreArea/Arbre"]
+light_mask = 2
 position = Vector2( -2.66667, 172 )
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 5 )
@@ -64,6 +67,7 @@ position = Vector2( -1, -3 )
 shape = SubResource( 1 )
 
 [node name="Herbe" type="Sprite" parent="."]
+light_mask = 2
 position = Vector2( 0, 224 )
 texture = ExtResource( 2 )
 
