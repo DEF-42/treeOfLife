@@ -43,7 +43,7 @@ func _process(delta):
 
 func _get_tree_sprite() -> String:
 	var tree_hp = GAME.get_tree_hp()
-	var sprite_path = $"../AudioStreamPlayer2D"
+	var sprite_path = "res://Assets/Outside/Arbre/grosArbre1HP.png"
 	if tree_hp == 3:
 		sprite_path = "res://Assets/Outside/Arbre/grosArbre.png"
 	elif tree_hp == 2:

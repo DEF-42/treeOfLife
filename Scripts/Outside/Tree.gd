@@ -19,6 +19,4 @@ func _on_hurt_tree(spritePath: String):
 		$HurtTreeLvl1.play()
 	elif spritePath == "res://Assets/Outside/Arbre/grosArbre1HP.png":
 		$HurtTreeLvl2.play()
-	else:
-		$HurtTreeLvl3.play()
 	sprite_path = spritePath

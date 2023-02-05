@@ -66,10 +66,11 @@ func _create_root(root: Node2D):
 		_randomize_root(root)
 
 func _randomize_root(root: Node2D):
-	var root_sprite = root.get_child(0)
-	root.get_child(0).region_rect = _get_random_root_texture()
-	root.rotate(_get_random_root_rotation())
-	_define_available_link(root)
+	if root.get_child(0) != null:
+		var root_sprite = root.get_child(0)	
+		root.get_child(0).region_rect = _get_random_root_texture()
+		root.rotate(_get_random_root_rotation())
+		_define_available_link(root)
 
 func _randomize_all_roots():
 	for root in $RootsGroup.get_children():

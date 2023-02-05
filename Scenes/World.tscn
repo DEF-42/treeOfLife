@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Outside/time_circle.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Scripts/OST.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/UI/UnitsManager.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Outside/full_light.png" type="Texture" id=12]
+[ext_resource path="res://Assets/UI/round_ui.png" type="Texture" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "DayCycleRotation"
@@ -166,20 +167,22 @@ tracks/1/keys = {
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 90.0, 176.0 ]
+"_edit_horizontal_guides_": [ 90.0, 176.0, 9.0, 187.0 ]
 }
 
 [node name="UIContainer" type="CanvasLayer" parent="."]
 
 [node name="RootSelector" parent="UIContainer" instance=ExtResource( 4 )]
 light_mask = 2
-scale = Vector2( 0.6, 0.6 )
+position = Vector2( 33, 13 )
+scale = Vector2( 0.55, 0.55 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UnitsManager" parent="CanvasLayer" instance=ExtResource( 11 )]
 light_mask = 2
-position = Vector2( 1450, 0 )
+position = Vector2( 1340, -1 )
+scale = Vector2( 0.85, 0.85 )
 
 [node name="DayCycle" type="Sprite" parent="."]
 light_mask = 2
@@ -218,6 +221,18 @@ position = Vector2( 680, 476 )
 
 [node name="AllyRightSpawner" type="Node2D" parent="AllySpawners"]
 position = Vector2( 912, 476 )
+
+[node name="Sprite" type="Sprite" parent="AllySpawners"]
+light_mask = 2
+position = Vector2( 729, 379 )
+scale = Vector2( 0.65, 0.65 )
+texture = ExtResource( 13 )
+
+[node name="Sprite2" type="Sprite" parent="AllySpawners"]
+light_mask = 2
+position = Vector2( 863, 379 )
+scale = Vector2( 0.65, 0.65 )
+texture = ExtResource( 13 )
 
 [node name="SpawnQLabel" type="Label" parent="AllySpawners"]
 margin_left = 709.0
@@ -267,7 +282,7 @@ position = Vector2( 1660, 472 )
 script = ExtResource( 10 )
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 801, 462.5 )
+position = Vector2( 799, 464 )
 scale = Vector2( 5.24, 2.6925 )
 texture = ExtResource( 12 )
 energy = 0.9
