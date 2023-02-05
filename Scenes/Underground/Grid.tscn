@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Underground/GridSelector.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Underground/grid_selector.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Underground/Grid.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Underground/light (2).png" type="Texture" id=4]
 [ext_resource path="res://Assets/Underground/fondTerre.png" type="Texture" id=5]
 [ext_resource path="res://Sounds/UI/SFX_Placer_Racine_2.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sounds/UI/SFX_Placer_Interdit.wav" type="AudioStream" id=9]
@@ -24,6 +25,9 @@ position = Vector2( 800, 1476 )
 texture = ExtResource( 5 )
 
 [node name="UndergroundSprite" type="Sprite" parent="UndergroundSprites"]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="UndergroundSprites"]
+color = Color( 0, 0, 0, 1 )
 
 [node name="RootPlacedSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
@@ -49,5 +53,14 @@ current = true
 limit_left = -40
 limit_right = 1560
 limit_bottom = 3020
+
+[node name="Light2D" type="Light2D" parent="GridKinematic/Camera2D"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
+offset = Vector2( 20, 20 )
+energy = 1.1
+range_layer_max = 1
+shadow_enabled = true
+shadow_item_cull_mask = 2
 
 [node name="GridSelectorMovement" type="AudioStreamPlayer" parent="GridKinematic"]

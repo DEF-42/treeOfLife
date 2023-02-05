@@ -41,6 +41,8 @@ tracks/0/keys = {
 extents = Vector2( 23.5, 17.5 )
 
 [node name="Ally" type="Node2D"]
+light_mask = 2
+z_index = 1
 
 [node name="AllyKinematic" type="KinematicBody2D" parent="."]
 script = ExtResource( 2 )
@@ -49,6 +51,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="AllyKinematic"]
+light_mask = 2
 rotation = 0.20944
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
