@@ -45,6 +45,7 @@ light_mask = 2
 z_index = 1
 
 [node name="AllyKinematic" type="KinematicBody2D" parent="."]
+collision_mask = 4
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
