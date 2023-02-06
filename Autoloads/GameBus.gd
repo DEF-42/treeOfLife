@@ -8,11 +8,13 @@ const MUSHROOM = "mushroom"
 const MAYA_PLATE = "maya_plate"
 const DEFAULT_TREE_HP = 3
 const SEDIMENTS_BY_NODE = 10
+const DEFAULT_AVAILABLE_ANTS = 3
+const DEFAULT_AVAILABLE_FOX = 0
 
 var resource_types = [ROCK, WATER, SEDIMENT, MUSHROOM, MAYA_PLATE]
 
-var available_ants: int = 3 setget set_available_ants, get_available_ants
-var available_fox: int = 0 setget set_available_fox, get_available_fox
+var available_ants: int = DEFAULT_AVAILABLE_ANTS setget set_available_ants, get_available_ants
+var available_fox: int = DEFAULT_AVAILABLE_FOX setget set_available_fox, get_available_fox
 var can_create_root: bool = true setget set_can_create_root, get_can_create_root
 # True = Jour, False = Nuit
 var day_cycle_state: bool = true setget set_day_cycle_state, get_day_cycle_state
@@ -95,6 +97,9 @@ func init_game():
 	set_tree_hp(DEFAULT_TREE_HP)
 	set_tree_sediments(0)
 	set_tree_mushrooms(0)
+	set_available_ants(DEFAULT_AVAILABLE_ANTS)
+	set_available_fox(DEFAULT_AVAILABLE_FOX)
+	set_day_cycle_state(true)
 	
 func can_place_root(position_to_place: Vector2, root: Node2D) -> bool:
 	if !check_free_in_grid(position_to_place):

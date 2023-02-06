@@ -1,6 +1,6 @@
 extends Node2D
 
-var fourmi = preload("res://Scenes/Outside/Ally.tscn")
+var fourmi = preload("res://Scenes/Outside/Ant.tscn")
 var renard = preload("res://Scenes/Outside/Fox.tscn")
 var allySpawner: Node2D
 
@@ -9,7 +9,6 @@ func _ready():
 	$Sprite/AnimationPlayer.play("flash")
 	$Sprite2/AnimationPlayer.play("flash")
 	EVENTS.connect("activate_ally_spawner", self, "_on_activate_ally_spawner")
-	EVENTS.connect("kill_ally", self, "_on_kill_ally")
 
 func _process(delta):
 	var new_fox = GAME.get_available_fox() - 1
@@ -17,16 +16,6 @@ func _process(delta):
 		var instance = renard.instance()
 		$FoxSpawner.add_child(instance)
 		GAME.set_available_fox(new_fox)
-	# On supprime la fourmi si elle sort de l'écran
-	if allySpawner != null:
-		if allySpawner.get_children().size() > 0:
-			var fourmiKinematic = allySpawner.get_child(0).get_child(0)
-			var leftBorder = fourmiKinematic.global_position.x > -80 and fourmiKinematic.global_position.x < -60
-			var rightBorder = fourmiKinematic.global_position.x > 1660 and fourmiKinematic.global_position.x < 1680
-			if leftBorder or rightBorder:
-				allySpawner.get_child(0).queue_free()
-				# On peut éventuellement la restacker dans nos ressources
-				# GAME.set_available_ants(GAME.get_available_ants() + 1)
 
 
 ### SIGNALS ###
@@ -38,10 +27,5 @@ func _on_activate_ally_spawner(spawner: Node2D):
 		GAME.set_available_ants(newAntsNbr)
 	
 		var instance = fourmi.instance()
+		instance.get_child(0).spawner = spawner.name
 		spawner.add_child(instance)
-		EVENTS.emit_signal("spawn_ally", spawner.name)
-
-func _on_kill_ally():
-	var ally = allySpawner.get_child(0)
-	if (ally):
-		ally.queue_free()

@@ -8,6 +8,58 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Sprite",
+"class": "CellThing",
+"language": "GDScript",
+"path": "res://Scripts/Underground/Items/CellThing.gd"
+}, {
+"base": "Resource",
+"class": "Grid",
+"language": "GDScript",
+"path": "res://Scripts/Underground/GridV2.gd"
+}, {
+"base": "CellThing",
+"class": "MayaPlate",
+"language": "GDScript",
+"path": "res://Scripts/Underground/Items/MayaPlate.gd"
+}, {
+"base": "CellThing",
+"class": "Mushroom",
+"language": "GDScript",
+"path": "res://Scripts/Underground/Items/Mushroom.gd"
+}, {
+"base": "CellThing",
+"class": "Rock",
+"language": "GDScript",
+"path": "res://Scripts/Underground/Items/Rock.gd"
+}, {
+"base": "CellThing",
+"class": "Root",
+"language": "GDScript",
+"path": "res://Scripts/Underground/Items/RootV2.gd"
+}, {
+"base": "CellThing",
+"class": "Sediment",
+"language": "GDScript",
+"path": "res://Scripts/Underground/Items/Sediment.gd"
+}, {
+"base": "CellThing",
+"class": "Water",
+"language": "GDScript",
+"path": "res://Scripts/Underground/Items/Water.gd"
+} ]
+_global_script_class_icons={
+"CellThing": "",
+"Grid": "",
+"MayaPlate": "",
+"Mushroom": "",
+"Rock": "",
+"Root": "",
+"Sediment": "",
+"Water": ""
+}
+
 [application]
 
 config/name="TreeOfLife"
