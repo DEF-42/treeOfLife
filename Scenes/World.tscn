@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Outside/time_circle.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/Underground/Grid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/DayCycle.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/Outside/EnemyLeftSpawner.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Outside/AllyDespawner.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/Outside/AllySpawners.gd" type="Script" id=9]
 [ext_resource path="res://Scripts/OST.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/UI/UnitsManager.tscn" type="PackedScene" id=11]
@@ -216,6 +217,12 @@ texture = ExtResource( 13 )
 anims/RESET = SubResource( 5 )
 anims/flash = SubResource( 6 )
 
+[node name="AllyDespawner" parent="AllySpawners" instance=ExtResource( 8 )]
+position = Vector2( -59, 475 )
+
+[node name="AllyDespawner2" parent="AllySpawners" instance=ExtResource( 8 )]
+position = Vector2( 1660, 472 )
+
 [node name="EnemySpawners" type="Node2D" parent="."]
 z_index = 2
 script = ExtResource( 7 )
@@ -237,6 +244,9 @@ energy = 0.9
 range_z_min = 0
 range_z_max = 3
 range_item_cull_mask = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AmbientDay" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )

@@ -1,17 +1,15 @@
 extends KinematicBody2D
 
-
 export var speed: int = 10
+export var spawner = "AllyLeftSpawner"
 
 var direction = Vector2.ZERO
-var spawner: String
 
 
 func _ready():
 	$Sprite/AnimationPlayer.play("walk")
-	EVENTS.connect("spawn_ally", self, "_on_spawn_ally")
 
-func _process(delta):
+func _physics_process(delta):
 	direction = Vector2.ZERO
 	if spawner == "AllyLeftSpawner":
 		direction.x = direction.x - speed
@@ -22,13 +20,15 @@ func _process(delta):
 	var collision = move_and_collide(speed * direction * delta)
 	if collision:
 		if collision.collider.name == "EnemyKinematic":
-			EVENTS.emit_signal("kill_ally")
+			_kill()
 			EVENTS.emit_signal("kill_enemy")
 			EVENTS.emit_signal("display_battle", collision.position)
+		if collision.collider.name == "AllyDespawnerKinematic":
+			_kill()
+#			EVENTS.emit_signal("kill_enemy")
+#			EVENTS.emit_signal("display_battle", collision.position)
 
 
-### SIGNALS ###
-func _on_spawn_ally(allySpawner: String):
-	if allySpawner == null:
-		spawner = "AllyLeftSpawner"
-	else: spawner = allySpawner
+### FUNCTIONS ###
+func _kill():
+	$".".queue_free()
