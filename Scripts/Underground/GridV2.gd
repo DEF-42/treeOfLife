@@ -14,6 +14,18 @@ export var cell_size := Vector2(80, 80)
 # That's how we can place things in the center of a cell.
 var _half_cell_size = cell_size / 2
 
+var content = []
+
+
+func add(cell_thing) -> void:
+	content.append(cell_thing)
+#	var cell = get_at_coordinates(calculate_grid_coordinates(cell_thing.position))
+#	if (cell == null):
+#		content.append(cell_thing)
+#	else:
+#		content.remove(cell.index)
+#		content.append(cell_thing)
+	
 
 # Returns the position of a cell's center in pixels.
 func calculate_map_position(grid_position: Vector2) -> Vector2:
@@ -55,3 +67,9 @@ func clamp(grid_position: Vector2) -> Vector2:
 # 2. You can use it for performance.
 func as_index(cell: Vector2) -> int:
 	return int(cell.x + size.x * cell.y)
+
+func get_at_coordinates(grid_position: Vector2):
+	for cell_thing in content:
+		if (calculate_grid_coordinates(cell_thing.position) == grid_position):
+			return cell_thing
+	return null

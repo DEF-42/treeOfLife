@@ -14,4 +14,4 @@ centered = false
 [node name="DebugSprite" type="Sprite" parent="."]
 visible = false
 texture = ExtResource( 3 )
-region_rect = Rect2( 124, 10, 80, 78 )
+region_rect = Rect2( 713, 259, 70, 72 )
