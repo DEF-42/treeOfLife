@@ -1,12 +1,7 @@
 class_name Root
 extends CellThing
 
-export var can_link = {
-	"left": false,
-	"right": false,
-	"top": false,
-	"bottom": false
-}
+const sprite = preload("res://Assets/Underground/Items/root_sprite.png")
 
 var rng = RandomNumberGenerator.new()
 var t_root_variations = {
@@ -29,8 +24,9 @@ func _ready():
 	rng.randomize()
 	_randomize_form()
 	_randomize_rotation()
-	self.skin = load("res://Assets/Underground/Items/root_sprite.png")
-	_define_linkable_parts()
+#	define_linkable_parts()
+	self.skin = sprite
+	self.variation = rng.randi_range(1, 3)
 
 
 ### FUNCTIONS ###
@@ -48,8 +44,9 @@ func _randomize_rotation():
 	var random_rotation = deg2rad(random_quarter * 90)
 	self.rotate(random_rotation)
 
-func _define_linkable_parts():
-	if (VARIATIONS == t_root_variations):
+func define_linkable_parts():
+	var can_link = {}
+	if (self.VARIATIONS == t_root_variations):
 		if (rotation_degrees == 0):
 			can_link.left = true
 			can_link.top = false
@@ -65,18 +62,18 @@ func _define_linkable_parts():
 			can_link.top = true
 			can_link.right = true
 			can_link.bottom = false
-		else:
+		elif rotation_degrees == 270:
 			can_link.left = false
 			can_link.top = true
 			can_link.right = true
 			can_link.bottom = true
-	elif (VARIATIONS == i_root_variations):
+	elif (self.VARIATIONS == i_root_variations):
 		if (rotation_degrees == 0 || rotation_degrees == 180):
 			can_link.left = false
 			can_link.top = true
 			can_link.right = false
 			can_link.bottom = true
-		else:
+		elif (rotation_degrees == 90 || rotation_degrees == 270):
 			can_link.left = true
 			can_link.top = false
 			can_link.right = true
@@ -97,8 +94,44 @@ func _define_linkable_parts():
 			can_link.top = true
 			can_link.right = true
 			can_link.bottom = false
-		else:
+		elif rotation_degrees == 270:
 			can_link.left = false
 			can_link.top = false
 			can_link.right = true
 			can_link.bottom = true
+	return can_link
+	
+func can_link(root_to_link: Root, direction: String) -> bool:
+	var root_to_link_links = root_to_link.define_linkable_parts()
+	var current_links = define_linkable_parts()
+	
+	return (direction == "left" && current_links.left && root_to_link_links.right) || (direction == "top" && current_links.top && root_to_link_links.bottom) || (direction == "right" && current_links.right && root_to_link_links.left) || (direction == "bottom" && current_links.bottom && root_to_link_links.top)
+
+func print_infos(tag: String):
+	print(tag)
+	
+#	Form
+	var form = ""
+	if (VARIATIONS == t_root_variations):
+		print("Form : T")
+	elif (VARIATIONS == i_root_variations):
+		print("Form : I")
+	elif (VARIATIONS == l_root_variations):
+		print("Form : L")
+	else:
+		print("Form non retrouvée")
+	
+#	Rotation
+	print("Rotation : ", rotation_degrees, "°")
+	
+#	Links
+	var can_link = define_linkable_parts()
+	if (can_link.left):
+		print("Has a link on left side")
+	if (can_link.top):
+		print("Has a link on top side")
+	if (can_link.right):
+		print("Has a link on right side")
+	if (can_link.bottom):
+		print("Has a link on bottom side")
+	print("------")
