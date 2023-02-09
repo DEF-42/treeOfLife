@@ -18,7 +18,6 @@ func _ready():
 
 func _process(_delta):
 	if GAME.get_tree_hp() == 0:
-		# On laisse le temps de jouer le son de chute de l'arbre
 		get_tree().change_scene("res://Scenes/GameOver.tscn")
 	if Input.is_action_just_pressed("spawn_ally_left"):
 		EVENTS.emit_signal("activate_ally_spawner", $AllySpawners/AllyLeftSpawner)

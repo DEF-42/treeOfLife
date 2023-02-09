@@ -1,8 +1,10 @@
 extends Node2D
 
 
+var beaver = preload("res://Scenes/Outside/Beaver.tscn")
 var termite = preload("res://Scenes/Outside/Enemy.tscn")
 var enemySpawner: Node2D
+var spawnedBeaver: bool = false
 
 
 func _ready():
@@ -13,7 +15,14 @@ func _ready():
 ### SIGNALS ###
 func _on_activate_enemy_spawner(spawner: Node2D):
 	enemySpawner = spawner
-	var instance = termite.instance()
+	var instance: Node
+	
+	if GAME.passed_nights % 3:
+		instance = beaver.instance()
+		instance.position.y = instance.position.y - 30
+	else:
+		instance = termite.instance()
+	
 	spawner.add_child(instance)
 	EVENTS.emit_signal("spawn_enemy", spawner.name)
 

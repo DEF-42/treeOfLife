@@ -12,6 +12,7 @@ signal day_state_changed(state)
 
 signal activate_enemy_spawner(spawner)
 signal kill_enemy()
+signal kill_ally()
 signal spawn_enemy(spawnerName)
 
 signal activate_ally_spawner(spawner)
