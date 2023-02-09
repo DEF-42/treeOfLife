@@ -24,6 +24,8 @@ func _process(delta):
 	if collision:
 		if collision.collider.name == "ArbreArea":
 			if GAME.get_tree_mushrooms() == 0:
+				# On tue le castor car il ne va pas s'acharner sur l'arbre
+				EVENTS.emit_signal("kill_enemy")
 				GAME.set_tree_hp(GAME.get_tree_hp() - 1)
 				# On change l'état de l'arbre en fonction des dégâts
 				EVENTS.emit_signal("hurt_tree", _get_tree_sprite())

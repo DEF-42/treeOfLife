@@ -46,10 +46,10 @@ func _on_day_state_changed(state: bool):
 		_createEnemyInstance()
 
 func _on_display_battle(position):
+	if is_instance_valid(battleSpawner):
+		battleSpawner.queue_free()
 	var instance = battle.instance()
 	instance.set_position(position)
-	if battleSpawner != null:
-		battleSpawner.queue_free()
 	battleSpawner = instance
 	$".".add_child(instance)
 
