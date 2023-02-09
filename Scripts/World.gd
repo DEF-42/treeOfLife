@@ -48,6 +48,8 @@ func _on_day_state_changed(state: bool):
 func _on_display_battle(position):
 	var instance = battle.instance()
 	instance.set_position(position)
+	if battleSpawner != null:
+		battleSpawner.queue_free()
 	battleSpawner = instance
 	$".".add_child(instance)
 
