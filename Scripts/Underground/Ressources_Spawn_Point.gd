@@ -1,16 +1,15 @@
 extends Node2D
 
-export var resource_type: String
-
-var resource_scene = preload("res://Scenes/Underground/Ressource.tscn")
 var rng = RandomNumberGenerator.new()
 
 
 func _ready():
 	rng.randomize()
+
+func generate_cell_things(cell_thing: CellThing):
 	var minimum = 1
 	var maximum = 9
-	if (resource_type == GAME.MAYA_PLATE):
+	if (cell_thing is GAME.MAYA_PLATE):
 		maximum = 1
 	var resource_number = rng.randi_range(minimum, maximum)
 	
@@ -25,8 +24,7 @@ func _ready():
 			if (skip == 1):
 				continue
 		
-		var resource_instance = resource_scene.instance()
-		resource_instance.type = resource_type
+		var resource_instance = cell_thing.new()
 		resource_instance.translate(Vector2(x, y))
 		$".".add_child(resource_instance)
 		

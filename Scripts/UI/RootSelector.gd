@@ -43,19 +43,11 @@ func _on_day_state_changed(_is_day: bool):
 ### FUNCTIONS ###
 func _create_root(root: Node2D):
 	EVENTS.emit_signal("create_root", root)
-	if GAME.get_can_create_root():
-		_randomize_root(root)
-
-func _randomize_root(root: Node2D):
-	if root.get_child_count() > 0 && root.get_child(0) != null:
-		var root_sprite = root.get_child(0)	
-		root.get_child(0).region_rect = GAME._get_random_root_texture(rng)
-		root.rotate(_get_random_root_rotation())
-		GAME._define_root_available_link(root)
+#		_randomize_root(root)
 
 func _randomize_all_roots():
-	for root in $RootsGroup.get_children():
-		_randomize_root(root)
+	for root in [$Root1, $Root2, $Root3]:
+		root.randomize_instance()
 	
 func _get_random_root_rotation() -> float:
 	var random_number = rng.randi_range(0, 3)

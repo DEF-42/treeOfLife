@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Outside/time_circle.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Sounds/foret_nuit.mp3" type="AudioStream" id=15]
 [ext_resource path="res://Scenes/UI/UnitsMarket.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Assets/UI/Touches/Q.png" type="Texture" id=17]
+[ext_resource path="res://Scenes/Underground/Debug_Underground.tscn" type="PackedScene" id=18]
 
 [sub_resource type="Animation" id=1]
 resource_name = "DayCycleRotation"
@@ -181,6 +182,10 @@ margin_bottom = 1820.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Grid" parent="." instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 0, 500 )
+
+[node name="Grid2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 0, 500 )
 
 [node name="Tree" parent="." instance=ExtResource( 3 )]

@@ -19,13 +19,6 @@ var content = []
 
 func add(cell_thing) -> void:
 	content.append(cell_thing)
-#	var cell = get_at_coordinates(calculate_grid_coordinates(cell_thing.position))
-#	if (cell == null):
-#		content.append(cell_thing)
-#	else:
-#		content.remove(cell.index)
-#		content.append(cell_thing)
-	
 
 # Returns the position of a cell's center in pixels.
 func calculate_map_position(grid_position: Vector2) -> Vector2:
@@ -73,3 +66,6 @@ func get_at_coordinates(grid_position: Vector2):
 		if (calculate_grid_coordinates(cell_thing.position) == grid_position):
 			return cell_thing
 	return null
+
+func cell_is_empty(cell: Vector2) -> bool:
+	return get_at_coordinates(cell) == null

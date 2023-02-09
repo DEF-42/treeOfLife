@@ -22,14 +22,20 @@ var l_root_variations = {
 
 func _ready():
 	rng.randomize()
+	randomize_instance()
 	_randomize_form()
 	_randomize_rotation()
-#	define_linkable_parts()
 	self.skin = sprite
 	self.variation = rng.randi_range(1, 3)
 
 
 ### FUNCTIONS ###
+func randomize_instance():
+	_randomize_form()
+	_randomize_rotation()
+	self.skin = sprite
+	self.variation = rng.randi_range(1, 3)
+
 func _randomize_form():
 	var random_number = rng.randi_range(1, 3)
 	if (random_number == 1):
@@ -107,9 +113,7 @@ func can_link(root_to_link: Root, direction: String) -> bool:
 	
 	return (direction == "left" && current_links.left && root_to_link_links.right) || (direction == "top" && current_links.top && root_to_link_links.bottom) || (direction == "right" && current_links.right && root_to_link_links.left) || (direction == "bottom" && current_links.bottom && root_to_link_links.top)
 
-func print_infos(tag: String):
-	print(tag)
-	
+func print_infos(tag: String):	
 #	Form
 	var form = ""
 	if (VARIATIONS == t_root_variations):

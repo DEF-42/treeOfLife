@@ -8,6 +8,8 @@ export var grid: Resource = preload("res://Resources/Grid.tres")
 # unit's sprite instantly. See `set_skin()` below.
 export var skin: Texture setget set_skin
 export var variation: int = 1
+export var outside_grid = false
+
 
 # Coordinates of the grid's cell the unit is on.
 var cell := Vector2.ZERO setget set_cell
@@ -15,6 +17,8 @@ var VARIATIONS = {}
 
 func _ready():
 	set_process(false)
+	if (outside_grid):
+		return
 
 	self.cell = grid.calculate_grid_coordinates(position)
 	position = grid.calculate_map_position(cell)

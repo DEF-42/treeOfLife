@@ -15,27 +15,23 @@ __meta__ = {
 
 [node name="UndergroundSprites" type="Node2D" parent="."]
 
-[node name="UndergroundSprite3" type="Sprite" parent="UndergroundSprites"]
-position = Vector2( 800, 2348 )
+[node name="CanvasModulate" type="CanvasModulate" parent="UndergroundSprites"]
+color = Color( 0, 0, 0, 1 )
+
+[node name="UndergroundSprite" type="Sprite" parent="UndergroundSprites"]
+position = Vector2( 800, 645 )
 texture = ExtResource( 5 )
 
 [node name="UndergroundSprite2" type="Sprite" parent="UndergroundSprites"]
-position = Vector2( 800, 1476 )
+position = Vector2( 800, 1745 )
 texture = ExtResource( 5 )
-
-[node name="UndergroundSprite" type="Sprite" parent="UndergroundSprites"]
-
-[node name="CanvasModulate" type="CanvasModulate" parent="UndergroundSprites"]
-color = Color( 0, 0, 0, 1 )
+region_enabled = true
+region_rect = Rect2( 0, 400, 1600, 900 )
 
 [node name="RootPlacedSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 
 [node name="RootPlacedForbiddenSound" type="AudioStreamPlayer" parent="."]
-
-[node name="UndergroundSprite" type="Sprite" parent="."]
-position = Vector2( 800, 644 )
-texture = ExtResource( 5 )
 
 [node name="GridKinematic" type="KinematicBody2D" parent="."]
 position = Vector2( 800, 0 )
@@ -50,7 +46,6 @@ offset = Vector2( 40, 40 )
 current = true
 limit_left = -40
 limit_right = 1560
-limit_bottom = 3020
 
 [node name="Light2D" type="Light2D" parent="GridKinematic/Camera2D"]
 scale = Vector2( 3, 3 )

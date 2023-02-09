@@ -1,17 +1,52 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Underground/fondTerre.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Underground/Debug_Underground.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Underground/Items/root_sprite.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/UI/SFX_Placer_Racine_2.wav" type="AudioStream" id=3]
+[ext_resource path="res://Scripts/Underground/GridSelector.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Underground/light (2).png" type="Texture" id=5]
+[ext_resource path="res://Assets/Underground/grid_selector.png" type="Texture" id=6]
 
-[node name="Node2D" type="Node2D"]
+[node name="Grid" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="FondTerre" type="Sprite" parent="."]
+[node name="UndergroundSprites" type="Node2D" parent="."]
+
+[node name="Underground" type="Sprite" parent="UndergroundSprites"]
+position = Vector2( 0, -10 )
 texture = ExtResource( 1 )
 centered = false
 
-[node name="DebugSprite" type="Sprite" parent="."]
-visible = false
-texture = ExtResource( 3 )
-region_rect = Rect2( 713, 259, 70, 72 )
+[node name="CanvasModulate" type="CanvasModulate" parent="UndergroundSprites"]
+color = Color( 0, 0, 0, 1 )
+
+[node name="RootPlacedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="RootPlacedForbiddenSound" type="AudioStreamPlayer" parent="."]
+
+[node name="GridKinematic" type="KinematicBody2D" parent="."]
+position = Vector2( 800, 0 )
+script = ExtResource( 4 )
+
+[node name="GridSelector" type="Sprite" parent="GridKinematic"]
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="GridKinematic"]
+offset = Vector2( 40, 40 )
+current = true
+limit_left = -40
+limit_right = 1560
+limit_bottom = 3020
+
+[node name="Light2D" type="Light2D" parent="GridKinematic/Camera2D"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 5 )
+offset = Vector2( 20, 20 )
+energy = 1.1
+range_layer_max = 1
+shadow_enabled = true
+shadow_item_cull_mask = 2
+
+[node name="GridSelectorMovement" type="AudioStreamPlayer" parent="GridKinematic"]
