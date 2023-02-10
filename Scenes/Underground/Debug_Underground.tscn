@@ -51,7 +51,6 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 1600, 1302 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="UndergroundSprites"]
-visible = false
 color = Color( 0, 0, 0, 1 )
 
 [node name="RootPlacedSound" type="AudioStreamPlayer" parent="."]
@@ -83,7 +82,6 @@ shadow_item_cull_mask = 2
 [node name="GridSelectorMovement" type="AudioStreamPlayer" parent="GridSelector"]
 
 [node name="DebugSprite" type="Sprite" parent="GridSelector"]
-visible = false
 texture = ExtResource( 6 )
 
 [node name="SelectedRoot" type="Sprite" parent="GridSelector"]
