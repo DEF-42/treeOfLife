@@ -9,7 +9,8 @@ var spawner: String
 
 
 func _ready():
-	$Sprite/AnimationPlayer.play("wlak")
+	$BeaverWalk.play()
+	$Sprite/AnimationPlayer.play("walk")
 	EVENTS.connect("spawn_enemy", self, "_on_spawn_enemy")
 
 func _process(delta):
