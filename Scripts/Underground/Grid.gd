@@ -4,8 +4,11 @@
 class_name Grid
 extends Resource
 
+const base_size := Vector2(20, 16)
+
+
 # The grid's size in rows and columns.
-export var size := Vector2(20, 16)
+export var size := base_size
 # The size of a cell in pixels.
 export var cell_size := Vector2(80, 80)
 
@@ -16,6 +19,9 @@ var _half_cell_size = cell_size / 2
 
 var content = []
 
+func reset():
+	content.clear()
+	size = base_size
 
 func add(cell_thing) -> void:
 	content.push_front(cell_thing)

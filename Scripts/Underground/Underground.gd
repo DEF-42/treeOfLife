@@ -25,6 +25,7 @@ var y_add_layers_trigger = 8
 
 ### BUILT-IN ###
 func _ready():
+	grid.reset()
 	rng.randomize()
 	_place_first_root()
 	_place_cell_things()

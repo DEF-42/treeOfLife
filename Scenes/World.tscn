@@ -163,7 +163,7 @@ margin_right = 4016.0
 margin_bottom = 1820.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Grid2" parent="." instance=ExtResource( 18 )]
+[node name="Underground" parent="." instance=ExtResource( 18 )]
 position = Vector2( 0, 500 )
 
 [node name="Tree" parent="." instance=ExtResource( 3 )]
