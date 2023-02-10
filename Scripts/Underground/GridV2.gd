@@ -5,7 +5,7 @@ class_name Grid
 extends Resource
 
 # The grid's size in rows and columns.
-export var size := Vector2(20, 20)
+export var size := Vector2(20, 16)
 # The size of a cell in pixels.
 export var cell_size := Vector2(80, 80)
 

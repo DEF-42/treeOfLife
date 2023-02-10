@@ -12,7 +12,7 @@ const root_placed_on_mushroom := preload("res://Sounds/UI/Champi.wav")
 const root_placed_on_maya_plate := preload("res://Sounds/UI/Maya.wav")
 const cell_thing_types = [Rock, MayaPlate, Sediment, Water, Mushroom]
 const cell_things_spawn_number_in_base_sprite = 12
-const cell_things_spawn_number_by_new_sprites = 10
+const rows_to_add_on_trigger = 16
 
 var root_placed_on_water_variations = {
 	1: preload("res://Sounds/UI/SFX_Water_1.wav"),
@@ -21,14 +21,16 @@ var root_placed_on_water_variations = {
 }
 var maya_plate_placed = false
 var rng = RandomNumberGenerator.new()
+var y_add_layers_trigger = 8
 
 ### BUILT-IN ###
 func _ready():
 	rng.randomize()
 	_place_first_root()
-	_place_cell_things(true)
+	_place_cell_things()
 	EVENTS.connect("select_root", self, "_on_root_selected")
 	EVENTS.connect("try_place_root", self, "_on_try_placing_root")
+	_limit_camera_bottom()
 
 ### SIGNALS ###
 func _on_root_selected(root: Root):
@@ -74,6 +76,10 @@ func _on_try_placing_root(root: Root):
 		grid.add(duplicated_root)
 		$RootPlacedSound.play()
 		EVENTS.emit_signal("root_placed")
+		
+		if (duplicated_root.cell.y == y_add_layers_trigger):
+			_add_underground_layer()
+		
 	else:
 		duplicated_root.queue_free()
 		$RootPlacedForbiddenSound.stop()
@@ -122,21 +128,15 @@ func _can_place_root(root: Root) -> bool:
 		
 	return false
 
-func _place_cell_things(initial_sprite = false):
+func _place_cell_things(start_row = 2):
+	# On enlève 3 dans les coordonnées pour pouvoir placer le carré
+	
 	var min_x = 0
-	var max_x = 19 - 3
-	var min_y
-	var max_y
-	if (initial_sprite):
-		min_y = 3
-		max_y = 15 - 3
-	else:
-		min_y = 16 - 3
-		max_y = 16 - 3
+	var max_x = grid.size.x - 3
 	
 	for cell_thing_index in range(cell_things_spawn_number_in_base_sprite):
 		var x = rng.randi_range(min_x, max_x)
-		var y = rng.randi_range(min_y, max_y)
+		var y = rng.randi_range(start_row, grid.size.y - 3)
 		
 		var cell_thing_class = _randomize_cell_thing()
 		if (y <= 8):
@@ -205,3 +205,16 @@ func can_link(root: Root, root_to_link: Root, direction: String) -> bool:
 	var current_links = root.define_linkable_parts()
 	
 	return (direction == "left" && current_links.left && root_to_link_links.right) || (direction == "top" && current_links.top && root_to_link_links.bottom) || (direction == "right" && current_links.right && root_to_link_links.left) || (direction == "bottom" && current_links.bottom && root_to_link_links.top)
+
+func _add_underground_layer():
+	$UndergroundSprites/Underground.region_rect = $UndergroundSprites/Underground.region_rect.grow_individual(0, 0, 0, rows_to_add_on_trigger * grid.cell_size.y)
+	var last_row = grid.size.y
+	grid.size.y += rows_to_add_on_trigger
+	y_add_layers_trigger += rows_to_add_on_trigger
+	_place_cell_things(last_row - 3)
+	_limit_camera_bottom()
+
+func _limit_camera_bottom():
+	# 500 = décallage vers le bas de l'underground pour placer sous l'arbre
+	# 10 = décallage vers le haut pour clipper avec l'herbe
+	$GridSelector/Camera2D.limit_bottom = $UndergroundSprites/Underground.region_rect.size.y + 500 - 10

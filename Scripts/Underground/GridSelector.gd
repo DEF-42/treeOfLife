@@ -35,8 +35,10 @@ func _process(_delta):
 			else: direction = Vector2.ZERO
 		elif Input.is_action_just_pressed("ui_down"):
 			$GridSelectorMovement.stream = VERTICAL_MOVEMENT_SOUND
-			self.cell += DOWN
-			direction = DOWN
+			if self.cell.y < grid.size.y - 1:
+				self.cell += DOWN
+				direction = DOWN
+			else: direction = Vector2.ZERO
 		elif Input.is_action_just_pressed("ui_left"):
 			$GridSelectorMovement.stream = HORIZONTAL_MOVEMENT_SOUND
 			if self.cell.x > 0:
@@ -45,7 +47,7 @@ func _process(_delta):
 			else: direction = Vector2.ZERO
 		elif Input.is_action_just_pressed("ui_right"):
 			$GridSelectorMovement.stream = HORIZONTAL_MOVEMENT_SOUND
-			if self.cell.x < 19:
+			if self.cell.x < grid.size.x - 1:
 				self.cell += RIGHT
 				direction = RIGHT
 			else: direction = Vector2.ZERO

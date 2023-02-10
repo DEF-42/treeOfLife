@@ -9,7 +9,6 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "Blink"
-length = 1.5
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -18,7 +17,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.8, 1.5 ),
+"times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.909804, 0.839216, 0.839216, 0.290196 ), Color( 1, 1, 1, 1 ) ]
@@ -48,8 +47,11 @@ script = ExtResource( 2 )
 position = Vector2( 0, -10 )
 texture = ExtResource( 1 )
 centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1600, 1302 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="UndergroundSprites"]
+visible = false
 color = Color( 0, 0, 0, 1 )
 
 [node name="RootPlacedSound" type="AudioStreamPlayer" parent="."]
@@ -64,10 +66,9 @@ position = Vector2( 800, 0 )
 script = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="GridSelector"]
-offset = Vector2( 40, 40 )
 current = true
-limit_left = -40
-limit_right = 1560
+limit_left = 0
+limit_right = 1600
 limit_bottom = 3020
 
 [node name="Light2D" type="Light2D" parent="GridSelector/Camera2D"]
@@ -81,7 +82,8 @@ shadow_item_cull_mask = 2
 
 [node name="GridSelectorMovement" type="AudioStreamPlayer" parent="GridSelector"]
 
-[node name="Sprite" type="Sprite" parent="GridSelector"]
+[node name="DebugSprite" type="Sprite" parent="GridSelector"]
+visible = false
 texture = ExtResource( 6 )
 
 [node name="SelectedRoot" type="Sprite" parent="GridSelector"]
