@@ -51,6 +51,7 @@ func _process(_delta):
 				self.cell += RIGHT
 				direction = RIGHT
 			else: direction = Vector2.ZERO
+		
 		$GridSelectorMovement.play()
 	else: speed = 0
 	
