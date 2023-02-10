@@ -1,8 +1,9 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://Scripts/Underground/GridV2.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Underground/Grid.gd" type="Script" id=1]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource( 1 )
-size = Vector2( 20, 20 )
+size = Vector2( 20, 16 )
 cell_size = Vector2( 80, 80 )

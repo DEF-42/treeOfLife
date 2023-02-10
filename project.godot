@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Grid",
 "language": "GDScript",
-"path": "res://Scripts/Underground/GridV2.gd"
+"path": "res://Scripts/Underground/Grid.gd"
 }, {
 "base": "CellThing",
 "class": "MayaPlate",
@@ -111,11 +111,6 @@ spawn_ally_left={
 spawn_ally_right={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":68,"unicode":0,"echo":false,"script":null)
- ]
-}
-rotate_roots={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777350,"unicode":0,"echo":false,"script":null)
  ]
 }
 refresh_roots={
