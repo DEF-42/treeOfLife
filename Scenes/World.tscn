@@ -1,10 +1,9 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Outside/time_circle.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Outside/Tree.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/UI/RootSelector.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Underground/Grid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/DayCycle.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/Outside/EnemyLeftSpawner.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/Outside/AllyDespawner.tscn" type="PackedScene" id=8]
@@ -139,23 +138,6 @@ __meta__ = {
 "_edit_vertical_guides_": [ 799.0, 1075.0 ]
 }
 
-[node name="UIContainer" type="CanvasLayer" parent="."]
-
-[node name="UnitsManager" parent="UIContainer" instance=ExtResource( 11 )]
-light_mask = 2
-position = Vector2( 1318, -1 )
-scale = Vector2( 0.85, 0.85 )
-
-[node name="RootSelector" parent="UIContainer" instance=ExtResource( 4 )]
-light_mask = 2
-position = Vector2( 33, 13 )
-scale = Vector2( 0.55, 0.55 )
-
-[node name="UnitsMarket" parent="UIContainer" instance=ExtResource( 16 )]
-visible = false
-position = Vector2( 350, 135 )
-scale = Vector2( 2, 2 )
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
 
@@ -180,10 +162,6 @@ margin_top = 500.0
 margin_right = 4016.0
 margin_bottom = 1820.0
 color = Color( 0, 0, 0, 1 )
-
-[node name="Grid" parent="." instance=ExtResource( 5 )]
-visible = false
-position = Vector2( 0, 500 )
 
 [node name="Grid2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 0, 500 )
@@ -260,3 +238,20 @@ volume_db = 4.5
 [node name="AmbientNight" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
 volume_db = 4.5
+
+[node name="UIContainer" type="CanvasLayer" parent="."]
+
+[node name="UnitsManager" parent="UIContainer" instance=ExtResource( 11 )]
+light_mask = 2
+position = Vector2( 1318, -1 )
+scale = Vector2( 0.85, 0.85 )
+
+[node name="RootSelector" parent="UIContainer" instance=ExtResource( 4 )]
+light_mask = 2
+position = Vector2( 33, 13 )
+scale = Vector2( 0.55, 0.55 )
+
+[node name="UnitsMarket" parent="UIContainer" instance=ExtResource( 16 )]
+visible = false
+position = Vector2( 350, 135 )
+scale = Vector2( 2, 2 )

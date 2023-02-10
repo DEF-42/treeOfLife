@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Underground/fondTerre.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Underground/Debug_Underground.gd" type="Script" id=2]
@@ -6,6 +6,38 @@
 [ext_resource path="res://Scripts/Underground/GridSelector.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Underground/light (2).png" type="Texture" id=5]
 [ext_resource path="res://Assets/Underground/grid_selector.png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Blink"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.909804, 0.839216, 0.839216, 0.290196 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.909804, 0.839216, 0.839216, 0.290196 ) ]
+}
 
 [node name="Grid" type="Node2D"]
 script = ExtResource( 2 )
@@ -25,22 +57,20 @@ stream = ExtResource( 3 )
 
 [node name="RootPlacedForbiddenSound" type="AudioStreamPlayer" parent="."]
 
-[node name="GridKinematic" type="KinematicBody2D" parent="."]
+[node name="CellThings" type="Node2D" parent="."]
+
+[node name="GridSelector" type="KinematicBody2D" parent="."]
 position = Vector2( 800, 0 )
 script = ExtResource( 4 )
 
-[node name="GridSelector" type="Sprite" parent="GridKinematic"]
-texture = ExtResource( 6 )
-centered = false
-
-[node name="Camera2D" type="Camera2D" parent="GridKinematic"]
+[node name="Camera2D" type="Camera2D" parent="GridSelector"]
 offset = Vector2( 40, 40 )
 current = true
 limit_left = -40
 limit_right = 1560
 limit_bottom = 3020
 
-[node name="Light2D" type="Light2D" parent="GridKinematic/Camera2D"]
+[node name="Light2D" type="Light2D" parent="GridSelector/Camera2D"]
 scale = Vector2( 3, 3 )
 texture = ExtResource( 5 )
 offset = Vector2( 20, 20 )
@@ -49,4 +79,16 @@ range_layer_max = 1
 shadow_enabled = true
 shadow_item_cull_mask = 2
 
-[node name="GridSelectorMovement" type="AudioStreamPlayer" parent="GridKinematic"]
+[node name="GridSelectorMovement" type="AudioStreamPlayer" parent="GridSelector"]
+
+[node name="Sprite" type="Sprite" parent="GridSelector"]
+texture = ExtResource( 6 )
+
+[node name="SelectedRoot" type="Sprite" parent="GridSelector"]
+modulate = Color( 0.909804, 0.839216, 0.839216, 0.290196 )
+region_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GridSelector/SelectedRoot"]
+method_call_mode = 1
+anims/Blink = SubResource( 1 )
+anims/RESET = SubResource( 2 )

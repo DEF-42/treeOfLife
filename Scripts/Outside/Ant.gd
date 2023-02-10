@@ -25,8 +25,6 @@ func _physics_process(delta):
 			EVENTS.emit_signal("display_battle", collision.position)
 		if collision.collider.name == "AllyDespawnerKinematic":
 			_kill()
-#			EVENTS.emit_signal("kill_enemy")
-#			EVENTS.emit_signal("display_battle", collision.position)
 
 
 ### FUNCTIONS ###

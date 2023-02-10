@@ -41,3 +41,8 @@ func set_skin(value: Texture) -> void:
 	if (!VARIATIONS.empty()):
 		self.region_enabled = true
 		self.region_rect = VARIATIONS.get(variation)
+
+func move_to(coordinates: Vector2):
+	var new_map_position = grid.calculate_map_position(coordinates)
+	self.cell = grid.calculate_grid_coordinates(new_map_position)
+	position = grid.calculate_map_position(cell)

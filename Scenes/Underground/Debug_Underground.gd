@@ -10,9 +10,8 @@ const root_placed_on_dirt := preload("res://Sounds/UI/SFX_Placer_Racine_2.wav")
 const root_placed_on_sediment := preload("res://Sounds/UI/sediments.wav")
 const root_placed_on_mushroom := preload("res://Sounds/UI/Champi.wav")
 const root_placed_on_maya_plate := preload("res://Sounds/UI/Maya.wav")
-const cell_thing_types = [MayaPlate]
-#const cell_thing_types = [Rock, MayaPlate, Sediment, Water, Mushroom]
-const cell_things_spawn_number_in_base_sprite = 10
+const cell_thing_types = [Rock, MayaPlate, Sediment, Water, Mushroom]
+const cell_things_spawn_number_in_base_sprite = 12
 const cell_things_spawn_number_by_new_sprites = 10
 
 var root_placed_on_water_variations = {
@@ -23,35 +22,74 @@ var root_placed_on_water_variations = {
 var maya_plate_placed = false
 var rng = RandomNumberGenerator.new()
 
+### BUILT-IN ###
 func _ready():
 	rng.randomize()
-	EVENTS.connect("create_root", self, "_on_create_root")
 	_place_first_root()
-	_place_cell_things()
-#
-#	# Roots with coherent links
-#	var min_x = 0
-#	var max_x = 10
-#	var max_y = 10
-#	x = min_x
-#	y = 0
-#	while y <= max_y:
-#		while (x <= max_x):
-#			var root_instance = Root.new()
-#			root_instance.position = grid.calculate_map_position(Vector2(x, y))
-#			self.add_child(root_instance)
-#
-#			if (_can_place_root(root_instance) || (x == 4)):
-#				grid.add(root_instance)
-#			else:
-#				root_instance.queue_free()
-#				self.remove_child(root_instance)
-#			x += 1
-#		x = min_x
-#		y += 1
+	_place_cell_things(true)
+	EVENTS.connect("select_root", self, "_on_root_selected")
+	EVENTS.connect("try_place_root", self, "_on_try_placing_root")
 
+### SIGNALS ###
+func _on_root_selected(root: Root):
+	$GridSelector/SelectedRoot.texture = root.texture
+	$GridSelector/SelectedRoot.region_rect = root.region_rect
+	$GridSelector/SelectedRoot.rotation = root.rotation
+
+func _on_try_placing_root(root: Root):
+	var duplicated_root = root.duplicate()
+	duplicated_root.assign(root)
+	var current_cell = grid.get_at_coordinates($GridSelector.cell)
+	
+	if (self._can_place_root(duplicated_root)):
+		duplicated_root.cell = $GridSelector.cell
+		duplicated_root.position = grid.calculate_map_position(duplicated_root.cell)
+		$CellThings.add_child(duplicated_root)
+		$RootPlacedSound.stop()
+
+		if (current_cell is Sediment):
+			GAME.increment_sediment()
+			if ($RootPlacedSound.stream != root_placed_on_sediment):
+				$RootPlacedSound.stream = root_placed_on_sediment
+		elif (current_cell is Mushroom):
+			if (GAME.get_tree_mushrooms() == 0):
+				EVENTS.emit_signal("mushroom_armor_gained")
+			GAME.increment_mushrooms()
+			if ($RootPlacedSound.stream != root_placed_on_mushroom):
+				$RootPlacedSound.stream = root_placed_on_mushroom
+		elif (current_cell is Water):
+			GAME.increment_water()
+			EVENTS.emit_signal("water_linked")
+			var random_index = rng.randi_range(1, root_placed_on_water_variations.size())
+			var stream = root_placed_on_water_variations.get(random_index)
+			if ($RootPlacedSound.stream != stream):
+				$RootPlacedSound.stream = stream
+		elif (current_cell is MayaPlate):
+			EVENTS.emit_signal("maya_plate_found")
+			if ($RootPlacedSound.stream != root_placed_on_maya_plate):
+				$RootPlacedSound.stream = root_placed_on_maya_plate
+		elif ($RootPlacedSound.stream != root_placed_on_dirt):
+				$RootPlacedSound.stream = root_placed_on_dirt
+				
+		grid.add(duplicated_root)
+		$RootPlacedSound.play()
+		EVENTS.emit_signal("root_placed")
+	else:
+		duplicated_root.queue_free()
+		$RootPlacedForbiddenSound.stop()
+		if current_cell is Rock:
+			if ($RootPlacedForbiddenSound.stream != root_placed_on_rock):
+				$RootPlacedForbiddenSound.stream = root_placed_on_rock
+		elif current_cell is Root:
+			if ($RootPlacedForbiddenSound.stream != root_placed_on_root):
+				$RootPlacedForbiddenSound.stream = root_placed_on_root
+		else:
+			$RootPlacedForbiddenSound.stream = root_placed_on_dirt_forbidden
+		$RootPlacedForbiddenSound.play()
+
+### FUNCTIONS ###
 func _can_place_root(root: Root) -> bool:
-	var current_cell_coordinates = grid.calculate_grid_coordinates(root.position)
+	var current_cell_coordinates = $GridSelector.cell
 	var current_cell = grid.get_at_coordinates(current_cell_coordinates)
 	
 	# Impassable cell thing on current cell
@@ -59,27 +97,27 @@ func _can_place_root(root: Root) -> bool:
 		return false
 	
 	## Left cell ##
-	var left_cell_coordinates = Vector2(current_cell_coordinates.x - 1, current_cell_coordinates.y)
+	var left_cell_coordinates = current_cell_coordinates + Vector2(-1, 0)
 	var left_cell = grid.get_at_coordinates(left_cell_coordinates)
-	if (left_cell != null && left_cell is Root && root.can_link(left_cell, "left")):
+	if (left_cell != null && left_cell is Root && can_link(root, left_cell, "left")):
 		return true
 	
 	## Top cell ##
-	var top_cell_coordinates = Vector2(current_cell_coordinates.x, current_cell_coordinates.y - 1)
+	var top_cell_coordinates = current_cell_coordinates + Vector2(0, -1)
 	var top_cell = grid.get_at_coordinates(top_cell_coordinates)
-	if (top_cell != null && top_cell is Root && root.can_link(top_cell, "top")):
+	if (top_cell != null && top_cell is Root && can_link(root, top_cell, "top")):
 		return true
 		
 	## Right cell ##
-	var right_cell_coordinates = Vector2(current_cell_coordinates.x + 1, current_cell_coordinates.y)
+	var right_cell_coordinates = current_cell_coordinates + Vector2(1, 0)
 	var right_cell = grid.get_at_coordinates(right_cell_coordinates)
-	if (right_cell != null && right_cell is Root && root.can_link(right_cell, "right")):
+	if (right_cell != null && right_cell is Root && can_link(root, right_cell, "right")):
 		return true
 	
 	## Bottom cell ##
-	var bottom_cell_coordinates = Vector2(current_cell_coordinates.x, current_cell_coordinates.y + 1)
+	var bottom_cell_coordinates = current_cell_coordinates + Vector2(0, 1)
 	var bottom_cell = grid.get_at_coordinates(bottom_cell_coordinates)
-	if (bottom_cell != null && bottom_cell is Root && root.can_link(bottom_cell, "bottom")):
+	if (bottom_cell != null && bottom_cell is Root && can_link(root, bottom_cell, "bottom")):
 		return true
 		
 	return false
@@ -97,68 +135,31 @@ func _place_cell_things(initial_sprite = false):
 		max_y = 16 - 3
 	
 	for cell_thing_index in range(cell_things_spawn_number_in_base_sprite):
-		var x = rng.randi_range(0, 19)
-		var y = rng.randi_range(3, 15)
+		var x = rng.randi_range(min_x, max_x)
+		var y = rng.randi_range(min_y, max_y)
 		
 		var cell_thing_class = _randomize_cell_thing()
-#		if (y <= 8):
-#			while cell_thing_class == MayaPlate:
-#				cell_thing_class = _randomize_cell_thing()
+		if (y <= 8):
+			while cell_thing_class == MayaPlate:
+				cell_thing_class = _randomize_cell_thing()
 		
 		_spawn_cell_things_square(cell_thing_class, Vector2(x, y))
 
-func _on_create_root(root: Node2D):
-	var duplicatedRoot = root.duplicate()
-	if GAME.can_place_root($GridKinematic.position, duplicatedRoot):
-		$RootPlacedSound.stop()
-				
-		if (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.SEDIMENT)):
-			GAME.increment_sediment()
-			if ($RootPlacedSound.stream != root_placed_on_sediment):
-				$RootPlacedSound.stream = root_placed_on_sediment
-		elif (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.MUSHROOM)):
-			if (GAME.get_tree_mushrooms() == 0):
-				EVENTS.emit_signal("mushroom_armor_gained")
-			GAME.increment_mushrooms()
-			if ($RootPlacedSound.stream != root_placed_on_mushroom):
-				$RootPlacedSound.stream = root_placed_on_mushroom
-		elif (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.WATER)):
-			GAME.increment_water()
-			EVENTS.emit_signal("water_linked")
-			var random_index = rng.randi_range(1, root_placed_on_water_variations.size())
-			var stream = root_placed_on_water_variations.get(random_index)
-			if ($RootPlacedSound.stream != stream):
-				$RootPlacedSound.stream = stream
-		elif (GAME.check_cell_contains_node_type($GridKinematic.position, GAME.MAYA_PLATE)):
-			EVENTS.emit_signal("maya_plate_found")
-			if ($RootPlacedSound.stream != root_placed_on_maya_plate):
-				$RootPlacedSound.stream = root_placed_on_maya_plate
-		elif ($RootPlacedSound.stream != root_placed_on_dirt):
-				$RootPlacedSound.stream = root_placed_on_dirt
-		
-		duplicatedRoot.position = Vector2($GridKinematic.position.x + 40, $GridKinematic.position.y + 40)
-		add_child_below_node($".", duplicatedRoot)
-		GAME._add_to_grid($GridKinematic.position, duplicatedRoot)
-		$RootPlacedSound.play()
-	else:
-		duplicatedRoot.queue_free()
-		$RootPlacedForbiddenSound.stop()
-		if GAME.check_cell_contains_node_type($GridKinematic.position, GAME.ROCK):
-			if ($RootPlacedForbiddenSound.stream != root_placed_on_rock):
-				$RootPlacedForbiddenSound.stream = root_placed_on_rock
-		elif GAME.check_cell_contains_node_type($GridKinematic.position, GAME.ROOT):
-			if ($RootPlacedForbiddenSound.stream != root_placed_on_root):
-				$RootPlacedForbiddenSound.stream = root_placed_on_root
-		else:
-			$RootPlacedForbiddenSound.stream = root_placed_on_dirt_forbidden
-		$RootPlacedForbiddenSound.play()
-
 func _place_first_root():
 	var first_root = Root.new()
+	first_root.randomize_instance()
 	var random_cell_under_tree = rng.randi_range(7, 12)
-	first_root.position = grid.calculate_map_position(Vector2(random_cell_under_tree, 0))
-	add_child_below_node($".", first_root)
+	var first_root_grid_position = Vector2(random_cell_under_tree, 0)
+	var first_root_map_position = grid.calculate_map_position(first_root_grid_position)
+	first_root.position = first_root_map_position
+	$CellThings.add_child(first_root)
 	grid.add(first_root)
+	
+	var selector_grid_position = first_root_grid_position
+	selector_grid_position.y += 1
+	var selector_map_position = grid.calculate_map_position(selector_grid_position)
+	$GridSelector.cell = selector_grid_position
+	$GridSelector.position = selector_map_position
 
 func _randomize_cell_thing():
 	var random_index = rng.randi_range(0, cell_thing_types.size() - 1)
@@ -166,9 +167,6 @@ func _randomize_cell_thing():
 	
 	if (selected_cell_thing == MayaPlate):
 		cell_thing_types.remove(random_index)
-	
-#	if (!maya_plate_placed && selected_cell_thing == MayaPlate):
-#		maya_plate_placed = true
 	
 	return selected_cell_thing
 
@@ -193,22 +191,17 @@ func _spawn_cell_things_square(cell_thing_class, starting_cell_position: Vector2
 		var cell_thing = cell_thing_class.new()
 		var cell_position = Vector2(x, y)
 		cell_thing.position = grid.calculate_map_position(cell_position);
-		self.add_child(cell_thing)
+		$CellThings.add_child(cell_thing)
 		if(grid.cell_is_empty(cell_position)):
 			grid.add(cell_thing)
 		else:
-			self.remove_child(cell_thing)
+			$CellThings.remove_child(cell_thing)
 
-#		var resource_instance = cell_thing.new()
-#		var global_position = Vector2(resource_instance.global_position.x, resource_instance.global_position.y - 500)
-#		if (!GAME.check_free_in_grid(global_position, false)):
-#			resource_instance.queue_free()
-#			continue
-#
-#		GAME._add_to_grid(global_position, resource_instance)
-#		if (i % 3 == 2):
-#			current_row = current_row + 1
-#	var spawn_point_instance = cell_things_spawn_point_scene.instance()
-#	spawn_point_instance.resource_type = resource_type
-#	spawn_point_instance.translate(Vector2(x, y))
-#	$".".add_child(spawn_point_instance)
+		if (i % 3 == 2):
+			current_row = current_row + 1
+
+func can_link(root: Root, root_to_link: Root, direction: String) -> bool:
+	var root_to_link_links = root_to_link.define_linkable_parts()
+	var current_links = root.define_linkable_parts()
+	
+	return (direction == "left" && current_links.left && root_to_link_links.right) || (direction == "top" && current_links.top && root_to_link_links.bottom) || (direction == "right" && current_links.right && root_to_link_links.left) || (direction == "bottom" && current_links.bottom && root_to_link_links.top)

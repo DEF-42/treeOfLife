@@ -18,7 +18,7 @@ var content = []
 
 
 func add(cell_thing) -> void:
-	content.append(cell_thing)
+	content.push_front(cell_thing)
 
 # Returns the position of a cell's center in pixels.
 func calculate_map_position(grid_position: Vector2) -> Vector2:
