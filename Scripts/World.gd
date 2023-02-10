@@ -18,7 +18,6 @@ func _ready():
 
 func _process(_delta):
 	if GAME.get_tree_hp() == 0:
-		# On laisse le temps de jouer le son de chute de l'arbre
 		get_tree().change_scene("res://Scenes/GameOver.tscn")
 	if Input.is_action_just_pressed("spawn_ally_left"):
 		EVENTS.emit_signal("activate_ally_spawner", $AllySpawners/AllyLeftSpawner)
@@ -47,6 +46,8 @@ func _on_day_state_changed(state: bool):
 		_createEnemyInstance()
 
 func _on_display_battle(position):
+	if is_instance_valid(battleSpawner):
+		battleSpawner.queue_free()
 	var instance = battle.instance()
 	instance.set_position(position)
 	battleSpawner = instance
