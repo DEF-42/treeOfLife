@@ -5,7 +5,6 @@ signal select_root(root)
 signal try_place_root(root)
 signal root_placed(root)
 
-signal sediment_linked()
 signal water_linked()
 signal maya_plate_found()
 signal mushroom_armor_gained()
