@@ -30,4 +30,14 @@ func _process(delta):
 			hp = hp - 1
 			
 	if hp == 0:
-		$".".queue_free()
+		_kill()
+
+
+### FUNCTIONS ###
+func _kill():
+	$".".queue_free()
+
+
+### SIGNALS ###
+func _on_kill_ally():
+	_kill()
