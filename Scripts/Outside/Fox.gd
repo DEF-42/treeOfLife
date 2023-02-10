@@ -20,10 +20,24 @@ func _process(delta):
 		direction.x = direction.x - speed
 		$Sprite.set_flip_h(false)
 	var collision = move_and_collide(speed * direction * delta)
+	
 	if collision:
 		if collision.collider.name == "EnemyKinematic":
 			EVENTS.emit_signal("kill_enemy")
 			EVENTS.emit_signal("display_battle", collision.position)
 			hp = hp - 1
-			if hp == 0:
-				$".".queue_free()
+		if collision.collider.name == "BeaverKinematic":
+			hp = hp - 1
+			
+	if hp == 0:
+		_kill()
+
+
+### FUNCTIONS ###
+func _kill():
+	$".".queue_free()
+
+
+### SIGNALS ###
+func _on_kill_ally():
+	_kill()
